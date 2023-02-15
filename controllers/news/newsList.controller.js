@@ -1,4 +1,4 @@
-const getNews = require('../../services/news/newsList.service');
+const { getNews } = require('../../services/news/newsList.service');
 
 const getNewsCtrl = async (req, res) => {
   const data = await getNews();
