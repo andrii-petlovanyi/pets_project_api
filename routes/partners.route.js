@@ -3,7 +3,7 @@ const router = express.Router();
 const {  
   listPartnersControler
 } = require('../controllers/partners.controller');
-const { asyncWrapper } = require('../../helpers/apiHelpers');
+const { wrapCtrl } = require('../../middlewares/wrapCtrl');
 // const {
 //   updateContactValidation,
 //   addContactValidation,
@@ -13,8 +13,7 @@ const { asyncWrapper } = require('../../helpers/apiHelpers');
 
 
 
-router
-  .get('/', asyncWrapper(listPartnersControler))
+router.get('/', wrapCtrl(listPartnersControler));
   
 
 module.exports = router;

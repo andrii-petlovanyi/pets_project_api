@@ -1,7 +1,7 @@
 const { getPartners } = require('../../services/partners/partnersList.service');
 
-const listPartnersControler = async (req, res, next) => {
-    try {
+const listPartnersCtrl = async (_, res) => {
+   
         const partners = await getPartners();
         res.json({
         status: 'success',
@@ -9,12 +9,9 @@ const listPartnersControler = async (req, res, next) => {
         data: {
             partners,
         },
-        });
-    } catch (error) {
-        next(error);
-    }
+    });
 };
     
 module.exports = {
-    listPartnersControler,
+    listPartnersCtrl,
 };
