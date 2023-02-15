@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const logger = require('morgan');
 const cors = require('cors');
 require('dotenv').config();
+const partnersRouter = require('./routes/partners.route');
 
 const errorsHandler = require('./helpers/errorHandler');
 
@@ -15,8 +16,8 @@ app.use(logger(typeLogger));
 app.use(cors());
 app.use(express.json());
 
-//example for use routes
-// app.use('/api/users', usersRouter);
+
+app.use('/api/friends', partnersRouter);
 
 app.use((_, res) => {
   res.status(404).json({ message: 'Sorry, but this resource not found' });
