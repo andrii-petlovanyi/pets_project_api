@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const logger = require('morgan');
 const cors = require('cors');
 require('dotenv').config();
+const partnersRouter = require('./routes/partners.route');
 
 const errorsHandler = require('./helpers/errorHandler');
 
@@ -17,6 +18,8 @@ app.use(logger(typeLogger));
 app.use(cors());
 app.use(express.json());
 
+
+app.use('/api/friends', partnersRouter);
 //example for use routes
 app.use('/api/news', NewsRouter);
 
