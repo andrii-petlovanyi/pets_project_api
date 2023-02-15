@@ -7,6 +7,8 @@ const partnersRouter = require('./routes/partners.route');
 
 const errorsHandler = require('./helpers/errorHandler');
 
+const NewsRouter = require('./routes/news.route');
+
 const app = express();
 const typeLogger = app.get('env') === 'development' ? 'dev' : 'short';
 const PORT = process.env.PORT || 5005;
@@ -18,6 +20,8 @@ app.use(express.json());
 
 
 app.use('/api/friends', partnersRouter);
+//example for use routes
+app.use('/api/news', NewsRouter);
 
 app.use((_, res) => {
   res.status(404).json({ message: 'Sorry, but this resource not found' });
