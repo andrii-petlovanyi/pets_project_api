@@ -10,13 +10,14 @@ const app = express();
 const typeLogger = app.get('env') === 'development' ? 'dev' : 'short';
 const PORT = process.env.PORT || 5005;
 const { MONGO_URL } = process.env;
+const usersRouter = require('./routes/users.route');
 
 app.use(logger(typeLogger));
 app.use(cors());
 app.use(express.json());
 
 //example for use routes
-// app.use('/api/users', usersRouter);
+app.use('/users.route', usersRouter);
 
 app.use((_, res) => {
   res.status(404).json({ message: 'Sorry, but this resource not found' });
