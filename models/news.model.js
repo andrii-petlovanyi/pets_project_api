@@ -5,14 +5,14 @@ const News = new Schema({
   title: {
     type: String,
   },
-  text: {
+  url: {
+    type: String,
+  },
+  description: {
     type: String,
   },
   data: {
-    type: String,
-  },
-  link: {
-    type: String,
+    type: Date,
   },
 });
 

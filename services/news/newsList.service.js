@@ -1,4 +1,5 @@
 const News = require('../../models/news.model');
+const CustomError = require('../../helpers/errors');
 
 const getNews = async () => {
   const data = await News.find();
