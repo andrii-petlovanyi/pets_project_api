@@ -14,14 +14,15 @@ const app = express();
 const typeLogger = app.get('env') === 'development' ? 'dev' : 'short';
 const PORT = process.env.PORT || 5005;
 const { MONGO_URL } = process.env;
+const usersRouter = require('./routes/users.route');
 
 app.use(logger(typeLogger));
 app.use(cors());
 app.use(express.json());
 
-
 app.use('/api/partners', partnersRouter);
 //example for use routes
+app.use('/api/users', usersRouter);
 app.use('/api/news', NewsRouter);
 app.use('/api/notices', noticesRouter);
 
