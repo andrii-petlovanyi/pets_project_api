@@ -7,6 +7,7 @@ const updateAvatar = async (userId, avatarURL) => {
     { new: true },
   );
   return user;
+  
 };
 
 module.exports = { updateAvatar };
