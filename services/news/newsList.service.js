@@ -11,4 +11,18 @@ const getNews = async () => {
   return data;
 };
 
-module.exports = { getNews };
+const getNewsByWord = async word => {
+  const data = await News.find({
+    title: {
+      $regex: `${word}`,
+    },
+  });
+
+  if (!data) {
+    throw new CustomError('Sorry, no news in database');
+  }
+
+  return data;
+};
+
+module.exports = { getNews, getNewsByWord };
