@@ -5,7 +5,8 @@ const Schema = mongoose.Schema;
 const Notices = new Schema({
   category: {
     type: String,
-    required: [true, 'Set add category'],
+    enum: ['lost-found', 'for-free', 'sell'],
+    default: 'sell',
   },
   title: {
     type: String,
@@ -38,6 +39,10 @@ const Notices = new Schema({
   },
   comments: {
     type: String,
+  },
+  owner: {
+    type: SchemaTypes.ObjectId,
+    ref: 'user',
   },
 });
 
