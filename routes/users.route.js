@@ -3,7 +3,7 @@ const router = express.Router();
 // const multer = require('multer');
 // const upload = multer();
 
-const wrapCtrl = require('../middlewares/wrapCtrl');
+const { wrapCtrl } = require('../middlewares/wrapCtrl');
 const checkJWT = require('../middlewares/checkJWT');
 const { userInfo } = require('../controllers/users/userInfo.controller');
 const {
