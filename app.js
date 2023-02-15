@@ -19,7 +19,8 @@ app.use(logger(typeLogger));
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/friends', partnersRouter);
+
+app.use('/api/partners', partnersRouter);
 //example for use routes
 app.use('/api/news', NewsRouter);
 app.use('/api/notices', noticesRouter);

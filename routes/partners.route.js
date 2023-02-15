@@ -1,19 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const {  
-  listPartnersControler
-} = require('../controllers/partners.controller');
-const { wrapCtrl } = require('../../middlewares/wrapCtrl');
-// const {
-//   updateContactValidation,
-//   addContactValidation,
-// } = require('../../middlewares/validationMiddleware');
+const {
+  listPartnersCtrl,
+} = require('../controllers/partners/partnersList.controller');
+const { wrapCtrl } = require('../middlewares/wrapCtrl');
 
-
-
-
-
-router.get('/', wrapCtrl(listPartnersControler));
-  
+router.get('/', wrapCtrl(listPartnersCtrl));
 
 module.exports = router;
