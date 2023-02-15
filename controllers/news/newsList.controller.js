@@ -1,15 +1,10 @@
-const News = require('../../models/news.model');
+const getNews = require('../../services/news/newsList.service');
 
-const getNews = async (req, res) => {
-  const data = await News.find();
-
-  if (!data) {
-    res.status(404).json({ status: `Not found`, statusCode: 404 });
-  }
-
+const getNewsCtrl = async (req, res) => {
+  const data = await getNews();
   res.status(200).json({ status: `Successfully!`, statusCode: 200, data });
 };
 
 module.exports = {
-  getNews,
+  getNewsCtrl,
 };
