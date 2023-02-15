@@ -8,6 +8,7 @@ const partnersRouter = require('./routes/partners.route');
 const errorsHandler = require('./helpers/errorHandler');
 
 const NewsRouter = require('./routes/news.route');
+const noticesRouter = require('./routes/notices.route');
 
 const app = express();
 const typeLogger = app.get('env') === 'development' ? 'dev' : 'short';
@@ -18,10 +19,10 @@ app.use(logger(typeLogger));
 app.use(cors());
 app.use(express.json());
 
-
 app.use('/api/friends', partnersRouter);
 //example for use routes
 app.use('/api/news', NewsRouter);
+app.use('/api/notices', noticesRouter);
 
 app.use((_, res) => {
   res.status(404).json({ message: 'Sorry, but this resource not found' });
