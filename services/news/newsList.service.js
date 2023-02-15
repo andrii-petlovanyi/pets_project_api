@@ -10,11 +10,13 @@ const getNews = async word => {
     });
     return data;
   }
+  
   const data = await News.find();
 
   if (!data) {
     throw new CustomError('Sorry, no news in database');
   }
+
   return data;
 };
 
