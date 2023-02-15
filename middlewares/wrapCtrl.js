@@ -8,8 +8,7 @@ const wrapCtrl = controller => {
   };
   return func;
 };
-
-module.exports = wrapCtrl;
+module.exports = { wrapCtrl };
 
 //example use
 // router.patch(
