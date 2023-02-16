@@ -17,5 +17,4 @@ noticesRouter.get('/', wrapCtrl(noticesController));
 noticesRouter.get('/', wrapCtrl(addNoticeController));
 noticesRouter.delete("/:id", wrapCtrl(deleteNoticeById));
 
-
 module.exports = noticesRouter;

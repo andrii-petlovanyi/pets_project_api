@@ -4,6 +4,9 @@ const logger = require('morgan');
 const cors = require('cors');
 require('dotenv').config();
 
+const swaggerUI = require('swagger-ui-express');
+const swaggerDoc = require('./swagger.json');
+
 const errorsHandler = require('./helpers/errorHandler');
 
 const usersRouter = require('./routes/users.route');
@@ -24,6 +27,8 @@ app.use('/api/users', usersRouter);
 app.use('/api/notices', noticesRouter);
 app.use('/api/friends', friendsRouter);
 app.use('/api/news', newsRouter);
+
+app.use('/', swaggerUI.serve, swaggerUI.setup(swaggerDoc));
 
 app.use((_, res) => {
   res.status(404).json({ message: 'Sorry, but this resource not found' });
