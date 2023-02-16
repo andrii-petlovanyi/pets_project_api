@@ -11,7 +11,7 @@ const {
 } = require('../controllers/users/updateUser.controller');
 const { reqValidation } = require('../middlewares/reqValidation');
 const { schemaUser } = require('../validations/user.validation');
-const { exitUser } = require('../controllers/users/logout');
+const { exitUser } = require('../controllers/users/logout.controller');
 
 router.get('/current', checkJWT, wrapCtrl(userInfo));
 router.patch(

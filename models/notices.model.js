@@ -25,6 +25,7 @@ const Notices = new Schema({
   petSex: {
     type: String,
     required: [true, 'Set pet sex'],
+    //TODO: enum
   },
   location: {
     type: String,

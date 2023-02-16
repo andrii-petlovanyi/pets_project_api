@@ -49,7 +49,13 @@ const User = new Schema(
         comments: { type: String, default: '' },
       },
     ],
+    favorites: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: 'Notices',
+      default: [],
+    },
   },
+
   {
     timestamps: true,
   },

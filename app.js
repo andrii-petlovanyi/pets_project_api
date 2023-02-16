@@ -3,28 +3,27 @@ const mongoose = require('mongoose');
 const logger = require('morgan');
 const cors = require('cors');
 require('dotenv').config();
-const partnersRouter = require('./routes/partners.route');
 
 const errorsHandler = require('./helpers/errorHandler');
 
-const NewsRouter = require('./routes/news.route');
+const usersRouter = require('./routes/users.route');
+const friendsRouter = require('./routes/friends.route');
+const newsRouter = require('./routes/news.route');
 const noticesRouter = require('./routes/notices.route');
 
 const app = express();
 const typeLogger = app.get('env') === 'development' ? 'dev' : 'short';
 const PORT = process.env.PORT || 5005;
 const { MONGO_URL } = process.env;
-const usersRouter = require('./routes/users.route');
 
 app.use(logger(typeLogger));
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/partners', partnersRouter);
-//example for use routes
 app.use('/api/users', usersRouter);
-app.use('/api/news', NewsRouter);
 app.use('/api/notices', noticesRouter);
+app.use('/api/friends', friendsRouter);
+app.use('/api/news', newsRouter);
 
 app.use((_, res) => {
   res.status(404).json({ message: 'Sorry, but this resource not found' });

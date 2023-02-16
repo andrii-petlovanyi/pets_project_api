@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { SchemaTypes } = mongoose;
 const Schema = mongoose.Schema;
 
-const Partner = new Schema({
+const Friends = new Schema({
   title: {
     type: SchemaTypes.String,
     required: [true, 'Set name for partner'],
@@ -27,8 +27,7 @@ const Partner = new Schema({
   },
   email: {
     type: SchemaTypes.String,
-   
   },
 });
 
-module.exports = mongoose.model('Partner', Partner);
+module.exports = mongoose.model('Friends', Friends);
