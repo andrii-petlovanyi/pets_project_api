@@ -215,10 +215,85 @@
           }
         }
       }
+    },
+    "/users/current": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get current user",
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "Update current user",
+        "requestBody": {
+          "description": "Updated object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful update operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Anna"
+          },
+          "email": {
+            "type": "string",
+            "example": "support@example.com"
+          },
+          "birthday": {
+            "type": "string",
+            "example": "20.02.2002"
+          },
+          "phone": {
+            "type": "string",
+            "example": 380679876543
+          },
+          "city": {
+            "type": "string",
+            "example": "Kyiv"
+          },
+          "avatarURL": {
+            "type": "string",
+            "example": null
+          }
+        }
+      },
       "RegistrationRequest": {
         "type": "object",
         "required": ["email", "password", "confirmPassword"],
