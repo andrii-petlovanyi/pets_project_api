@@ -20,7 +20,7 @@ const reqValidation = schema => {
   return func;
 };
 
-export { reqValidation };
+module.exports = { reqValidation };
 
 //example use
 // router.post('/', reqValidation(postJoiSchema), wrapCtrl(addPostCtrl));
