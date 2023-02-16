@@ -1,13 +1,11 @@
-const {Notices} = require("../../models/notices.model")
+const { Notices } = require('../../models/notices.model');
 
+const createNotice = async data => {
+  const res = await Notices.create({});
 
-const createNotice = async () => {
-   
-const data = await Notices.create({});
-  
-return data;
+  return res;
 };
 
 module.exports = {
-    createNotice
+  createNotice,
 };

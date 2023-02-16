@@ -23,11 +23,12 @@ app.use(logger(typeLogger));
 app.use(cors());
 app.use(express.json());
 
-app.use('/', swaggerUI.serve, swaggerUI.setup(swaggerDoc));
 app.use('/api/users', usersRouter);
 app.use('/api/notices', noticesRouter);
 app.use('/api/friends', friendsRouter);
 app.use('/api/news', newsRouter);
+
+app.use('/', swaggerUI.serve, swaggerUI.setup(swaggerDoc));
 
 app.use((_, res) => {
   res.status(404).json({ message: 'Sorry, but this resource not found' });
