@@ -49,11 +49,12 @@ const User = new Schema(
         comments: { type: String, default: '' },
       },
     ],
-    favorites: {
-      type: [mongoose.Schema.Types.ObjectId],
-      ref: 'Notices',
-      default: [],
-    },
+    favorites: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'notice',
+      },
+    ],
   },
 
   {
