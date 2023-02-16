@@ -12,6 +12,10 @@ const {
 const { reqValidation } = require('../middlewares/reqValidation');
 const { schemaUser } = require('../validations/user.validation');
 const { exitUser } = require('../controllers/users/logout.controller');
+const {
+  addNoticeToFavoritesCtrl,
+} = require('../controllers/users/favorite.controller');
+const idValidation = require('../middlewares/idValidation');
 
 router.get('/current', checkJWT, wrapCtrl(userInfo));
 router.patch(
@@ -19,6 +23,11 @@ router.patch(
   checkJWT,
   reqValidation(schemaUser),
   wrapCtrl(updateUserInfo),
+);
+router.patch(
+  '/favorites/:idNotice',
+  idValidation,
+  wrapCtrl(addNoticeToFavoritesCtrl),
 );
 
 // router.patch(
