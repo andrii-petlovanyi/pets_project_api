@@ -10,9 +10,12 @@ const addNoticeToFavoritesCtrl = async (req, res) => {
   const noticeId = req.params.noticeId;
 
   await addNoticeToFavorites(userId, noticeId);
-  res
-    .status(200)
-    .json({ message: `Notice is successfully added!`, statusCode: 200 });
+
+  res.status(200).json({
+    status: 'success',
+    message: `Notice with id ${noticeId} added successfully to favorites lists!`,
+    code: 200,
+  });
 };
 
 const deleteNoticeFromFavoritesCtrl = async (req, res) => {
@@ -21,6 +24,10 @@ const deleteNoticeFromFavoritesCtrl = async (req, res) => {
 
   await deleteNoticeFromFavorites(userId, noticeId);
 
-  res.status(200).json({ message: 'Notice deleted from favorite' });
+  res.status(200).json({
+    status: 'success',
+    message: `Notice with id ${noticeId} successfully removed from favorites lists!`,
+    code: 200,
+  });
 };
 module.exports = { addNoticeToFavoritesCtrl, deleteNoticeFromFavoritesCtrl };
