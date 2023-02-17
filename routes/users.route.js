@@ -5,7 +5,7 @@ const router = express.Router();
 
 const { wrapCtrl } = require('../middlewares/wrapCtrl');
 const checkJWT = require('../middlewares/checkJWT');
-const { userInfo } = require('../controllers/users/userInfo.controller');
+// const { userInfo } = require('../controllers/users/');
 const {
   updateUserInfo,
 } = require('../controllers/users/updateUser.controller');
@@ -19,7 +19,7 @@ const { logOutCtrl } = require('../controllers/users/logout.controller');
 const registerCtrl = require('../controllers/users/register.controller'); //DIANA
 const { loginCtrl } = require('../controllers/users/login.controller'); //DIANA
 
-router.get('/current', checkJWT, wrapCtrl(userInfo));
+// router.get('/current', checkJWT, wrapCtrl(userInfo));
 router.patch(
   '/',
   checkJWT,
