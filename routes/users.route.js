@@ -23,12 +23,7 @@ const { logOutCtrl } = require('../controllers/users/logout.controller');
 const registerCtrl = require('../controllers/users/register.controller'); //DIANA
 const { loginCtrl } = require('../controllers/users/login.controller'); //DIANA
 
-router.patch(
-  '/',
-  checkJWT,
-  reqValidation(schemaUser),
-  wrapCtrl(updateUserInfo),
-);
+router.patch('/', checkJWT, wrapCtrl(updateUserInfo));
 router.patch(
   '/favorites/:idNotice',
   idValidation,
