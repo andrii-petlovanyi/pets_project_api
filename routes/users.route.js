@@ -15,9 +15,9 @@ const {
 } = require('../controllers/users/favorite.controller');
 const idValidation = require('../middlewares/idValidation');
 const {
-  schemaUser,
   loginSchema,
   registerSchema,
+  updateUserSchema,
 } = require('../validations/user.validation');
 const { logOutCtrl } = require('../controllers/users/logout.controller');
 const registerCtrl = require('../controllers/users/register.controller');
@@ -33,7 +33,11 @@ router.post('/login', reqValidation(loginSchema), wrapCtrl(loginCtrl));
 router.use(checkJWT);
 router.get('/current', wrapCtrl(currentUserCtrl));
 router.get('/logout', wrapCtrl(logOutCtrl));
-router.patch('/update', wrapCtrl(updateUserInfo));
+router.patch(
+  '/update',
+  reqValidation(updateUserSchema),
+  wrapCtrl(updateUserInfo),
+);
 router.patch(
   '/favorites/:noticeId',
   idValidation,
