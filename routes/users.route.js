@@ -8,9 +8,9 @@ const checkJWT = require('../middlewares/checkJWT');
 const {
   updateUserInfo,
 } = require('../controllers/users/updateUser.controller');
-const { reqValidation } = require('../middlewares/reqValidation');
-const { schemaUser } = require('../validations/user.validation');
-const { exitUser } = require('../controllers/users/logout.controller');
+// const { reqValidation } = require('../middlewares/reqValidation');
+// const { schemaUser } = require('../validations/user.validation');
+// const { exitUser } = require('../controllers/users/logout.controller');
 const {
   addNoticeToFavoritesCtrl,
   deleteNoticeFromFavoritesCtrl,
