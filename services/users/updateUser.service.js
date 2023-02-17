@@ -10,7 +10,6 @@ const updateUser = async (userId, body) => {
   )
     .select('-password -createdAt -updatedAt')
     .exec();
-
   return updatedUser;
 };
 

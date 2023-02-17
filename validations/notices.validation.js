@@ -9,7 +9,7 @@ const noticeAddSchema = Joi.object({
     .required(),
   title: Joi.string().min(2).max(48).required(),
   petName: Joi.string().min(2).max(16),
-  birth: Joi.string(),
+  birth: Joi.date(),
   breed: Joi.string().min(2).max(24),
   petSex: Joi.string()
     .valid(...sexList)

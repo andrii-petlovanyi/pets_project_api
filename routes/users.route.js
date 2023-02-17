@@ -45,8 +45,9 @@ router.delete(
   idValidation,
   wrapCtrl(deleteNoticeFromFavCtrl),
 );
-// router.post('/:idUser/pets');
-// router.delete('/:idUser/pets');
+
+// router.post('/pets');
+// router.delete('/pets/:idPets');
 
 // router.path('/:idUser');
 
