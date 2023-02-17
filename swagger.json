@@ -1,0 +1,805 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "0.0.1",
+    "title": "Pet support"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3002/api"
+    }
+  ],
+  "tags": [
+    {
+      "name": "User",
+      "description": "Operations about user"
+    },
+    {
+      "name": "Notices",
+      "description": "Operations about notices"
+    },
+    {
+      "name": "News",
+      "description": "Operations about news"
+    },
+    {
+      "name": "Friends",
+      "description": "Operations about friends"
+    }
+  ],
+  "paths": {
+    "/notices": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Find all notices",
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "description": "Category values that need to be considered for filter",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "default": "sell",
+              "enum": ["sell", "lost/found", "in good hands"]
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page to display",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "default": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limitation on the number of notes",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": ["Notices"],
+        "summary": "Add a new notice",
+        "requestBody": {
+          "description": "Registration's object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NoticeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticeById"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/notices/{noticeId}": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Find notice by Id",
+        "parameters": [
+          {
+            "name": "noticeId",
+            "in": "path",
+            "description": "ID of notice to return",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticeById"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/news": {
+      "get": {
+        "summary": "Метод получения новостей",
+        "description": "Метод предназначен для получения списка всех новостей, сохраненных в БД или поиска нвоовстей по ключевому слову.",
+        "operationId": "getNews",
+        "tags": ["News"],
+        "parameters": [
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Название статьи",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Список новостей",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/News"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Любая неожиданная ошибка",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/friends": {
+      "get": {
+        "summary": "Get list partners method",
+        "tags": ["friends"],
+        "operationId": "getFriends",
+        "responses": {
+          "200": {
+            "description": "Success request with list partners",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Friends"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Any unexpecting error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/signup": {
+      "post": {
+        "tags": ["User"],
+        "summary": "User registration",
+        "requestBody": {
+          "description": "Registration's object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags": ["User"],
+        "summary": "User login",
+        "requestBody": {
+          "description": "Registration's object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/current": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get current user",
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "Update current user",
+        "requestBody": {
+          "description": "Updated object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful update operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Anna"
+          },
+          "email": {
+            "type": "string",
+            "example": "support@example.com"
+          },
+          "birthday": {
+            "type": "string",
+            "example": "20.02.2002"
+          },
+          "phone": {
+            "type": "string",
+            "example": 380679876543
+          },
+          "city": {
+            "type": "string",
+            "example": "Kyiv"
+          },
+          "avatarURL": {
+            "type": "string",
+            "example": null
+          }
+        }
+      },
+      "RegistrationRequest": {
+        "type": "object",
+        "required": ["email", "password", "confirmPassword"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "test@mail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "123qweQWE"
+          },
+          "confirmPassword": {
+            "type": "string",
+            "example": "123qweQWE"
+          },
+          "name": {
+            "type": "string",
+            "example": "Jimm Brown"
+          },
+          "city": {
+            "type": "string",
+            "example": "Ukraine, Kyiv"
+          },
+          "phone": {
+            "type": "string",
+            "example": 3801112233
+          }
+        }
+      },
+      "RegistrationResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "example": "as8das98dasd8asd9sa.d9as9da90d90asd09as9dasd90as.9asd8as0das089"
+          },
+          "user": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "63ed0c6c5b30d43d3cc884bf"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "mail@mail.com"
+                }
+              }
+            }
+          }
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "test@mail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "123qweQWE"
+          }
+        }
+      },
+      "News": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "Successfully"
+          },
+          "statusCode": {
+            "type": "integer",
+            "example": 200
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "example": "63ed0c6c5b30d43d3cc884bf"
+                },
+                "title": {
+                  "description": "Заголовок новости",
+                  "type": "string",
+                  "example": "Обережно, кліщі!"
+                },
+                "url": {
+                  "description": "Link",
+                  "type": "string",
+                  "example": "https://www.kmlvm.com.ua"
+                },
+                "description": {
+                  "description": "Описание",
+                  "type": "string",
+                  "example": "Травневі прогулянки з улюбленцем не лише приємні..."
+                },
+                "date": {
+                  "description": "Дата и время новости в каталоге",
+                  "type": "string",
+                  "example": "2022-08-12"
+                }
+              }
+            }
+          }
+        }
+      },
+      "NoticesResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "category": {
+              "type": "string",
+              "description": "Category of notice",
+              "example": "sell"
+            },
+            "title": {
+              "type": "string",
+              "description": "Title of notice",
+              "example": "Cute dog"
+            },
+            "petName": {
+              "type": "string",
+              "description": "Name of pet",
+              "example": "Luck"
+            },
+            "birth": {
+              "type": "string",
+              "description": "Date of birth",
+              "example": "20.09.2020"
+            },
+            "breed": {
+              "type": "string",
+              "description": "Breed of pet",
+              "example": "Pomeranian"
+            },
+            "petSex": {
+              "type": "string",
+              "description": "Sex of pet",
+              "example": "male"
+            },
+            "location": {
+              "type": "string",
+              "description": "Location of pet",
+              "example": "Lviv"
+            },
+            "price": {
+              "type": "number",
+              "description": "Price of pet",
+              "example": "50"
+            },
+            "petImage": {
+              "type": "string",
+              "description": "Image of pet",
+              "example": "https://editor.swagger.io/"
+            },
+            "comments": {
+              "type": "string",
+              "description": "Сomments about pet",
+              "example": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. "
+            },
+            "owner": {
+              "type": "string",
+              "description": "User's id owner of notice",
+              "example": "125546464"
+            }
+          }
+        },
+        "example": [
+          {
+            "category": "sell",
+            "title": "Cute dog",
+            "petName": "Luck",
+            "birth": "20.09.2020",
+            "breed": "Pomeranian",
+            "petSex": "male",
+            "location": "Lviv",
+            "price": 50,
+            "petImage": "????",
+            "comments": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ",
+            "owner": "125546464"
+          },
+          {
+            "category": "in good hands",
+            "title": "Nice small dog",
+            "petName": "Сookie",
+            "birth": "20.09.2021",
+            "breed": "Pomeranian",
+            "petSex": "female",
+            "location": "Kyiv",
+            "price": 80,
+            "petImage": "????",
+            "comments": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ",
+            "owner": "65897777"
+          }
+        ]
+      },
+      "NoticeRequest": {
+        "type": "object",
+        "required": ["title", "petSex", "location", "price"],
+        "properties": {
+          "category": {
+            "type": "string",
+            "description": "Category of notice",
+            "example": "sell"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of notice",
+            "example": "Cute dog"
+          },
+          "petName": {
+            "type": "string",
+            "description": "Name of pet",
+            "example": "Luck"
+          },
+          "birth": {
+            "type": "string",
+            "description": "Date of birth",
+            "example": "20.09.2020"
+          },
+          "breed": {
+            "type": "string",
+            "description": "Breed of pet",
+            "example": "Pomeranian"
+          },
+          "petSex": {
+            "type": "string",
+            "description": "Sex of pet",
+            "example": "male"
+          },
+          "location": {
+            "type": "string",
+            "description": "Location of pet",
+            "example": "Lviv"
+          },
+          "price": {
+            "type": "number",
+            "description": "Price of pet",
+            "example": 50
+          },
+          "petImage": {
+            "type": "string",
+            "description": "Image of pet",
+            "example": "https://editor.swagger.io/"
+          },
+          "comments": {
+            "type": "string",
+            "description": "Сomments about pet",
+            "example": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. "
+          },
+          "owner": {
+            "type": "string",
+            "description": "User's id owner of notice",
+            "example": "125546464"
+          }
+        },
+        "example": {
+          "category": "sell",
+          "title": "Cute dog",
+          "petName": "Luck",
+          "birth": "20.09.2020",
+          "breed": "Pomeranian",
+          "petSex": "male",
+          "location": "Lviv",
+          "price": 50,
+          "petImage": "",
+          "comments": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. "
+        }
+      },
+      "NoticeById": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string",
+            "description": "Category of notice",
+            "example": "sell"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of notice",
+            "example": "Cute dog"
+          },
+          "petName": {
+            "type": "string",
+            "description": "Name of pet",
+            "example": "Luck"
+          },
+          "birth": {
+            "type": "string",
+            "description": "Date of birth",
+            "example": "20.09.2020"
+          },
+          "breed": {
+            "type": "string",
+            "description": "Breed of pet",
+            "example": "Pomeranian"
+          },
+          "petSex": {
+            "type": "string",
+            "description": "Sex of pet",
+            "example": "male"
+          },
+          "location": {
+            "type": "string",
+            "description": "Location of pet",
+            "example": "Lviv"
+          },
+          "price": {
+            "type": "number",
+            "description": "Price of pet",
+            "example": 50
+          },
+          "petImage": {
+            "type": "string",
+            "description": "Image of pet",
+            "example": "https://editor.swagger.io/"
+          },
+          "comments": {
+            "type": "string",
+            "description": "Сomments about pet",
+            "example": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. "
+          },
+          "owner": {
+            "type": "string",
+            "description": "User's id owner of notice",
+            "example": "125546464"
+          }
+        },
+        "example": {
+          "category": "sell",
+          "title": "Cute dog",
+          "petName": "Luck",
+          "birth": "20.09.2020",
+          "breed": "Pomeranian",
+          "petSex": "male",
+          "location": "Lviv",
+          "price": 50,
+          "petImage": "",
+          "comments": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ",
+          "owner": "125546464"
+        }
+      },
+      "Friend": {
+        "type": "object",
+        "required": ["title"],
+        "properties": {
+          "friend_id": {
+            "type": "string",
+            "example": "63eddca3e7fb348e18e4cc34"
+          },
+          "title": {
+            "type": "string",
+            "example": "Притулок для бездомних тварин 'Сіріус'"
+          },
+          "url": {
+            "type": "string",
+            "example": "https://dogcat.com.ua"
+          },
+          "addressUrl": {
+            "type": "string",
+            "example": "https://goo.gl/maps/iq8NXEUf31EAQCzc6"
+          },
+          "imageUrl": {
+            "type": "string",
+            "example": "https://storage.googleapis.com/kidslikev2_bucket/pets-support/images/sponsors/frame_287.png"
+          },
+          "address": {
+            "type": "string",
+            "example": "Fedorivka, Kyiv Oblast, Ukraine, 07372"
+          },
+          "phone": {
+            "type": "string",
+            "example": 380931934069
+          },
+          "email": {
+            "type": "string",
+            "example": "hello@happypaw.ua"
+          },
+          "workDays": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "isOpen": {
+                  "type": "boolean",
+                  "example": "true,"
+                },
+                "startTime": {
+                  "type": "string",
+                  "example": "09:00,"
+                },
+                "endTime": {
+                  "type": "string",
+                  "example": "17:00"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Friends": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Friend"
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": ["code", "message"],
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
