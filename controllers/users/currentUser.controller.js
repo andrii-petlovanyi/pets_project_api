@@ -1,6 +1,12 @@
+const current = require('../../services/users/current.service');
+
 const currentUserCtrl = async (req, res) => {
   const user = req.user;
   const resUser = user.toObject();
+
+  const petsList = await current(user._id);
+
+  resUser.pets = petsList;
 
   delete resUser.password;
   delete resUser.createdAt;

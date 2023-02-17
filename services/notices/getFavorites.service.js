@@ -1,11 +1,19 @@
 const User = require('../../models/user.model');
 
-const getFavoritesNotices = async _id => {
-  const result = await User.findOne({ _id }, 'favorites').populate({
-    path: 'favorites',
-    select: '-updatedAt -__v',
-  });
-  return result;
+const favNoticesList = async (_id, page, limit, search) => {
+  const notices = search
+    ? await User.findOne({ _id }, 'favorites').populate({
+        path: 'favorites',
+        match: { $text: { $search: search } },
+        select: '-updatedAt -__v',
+        options: { limit: limit, skip: (page - 1) * limit },
+      })
+    : await User.findOne({ _id }, 'favorites').populate({
+        path: 'favorites',
+        select: '-updatedAt -__v',
+        options: { limit: limit, skip: (page - 1) * limit },
+      });
+  return notices;
 };
 
-module.exports = { getFavoritesNotices };
+module.exports = { favNoticesList };

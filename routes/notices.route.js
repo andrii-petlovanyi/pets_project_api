@@ -17,8 +17,12 @@ const {
 const {
   deleteNoticeCtrl,
 } = require('../controllers/notices/deleteNotice.controller');
+const {
+  userNoticeListCtrl,
+} = require('../controllers/notices/userNotice.controller');
 
 router.get('/', wrapCtrl(noticeListCtrl));
+router.get('/owner', checkJWT, wrapCtrl(userNoticeListCtrl));
 router.get('/:noticeId', idValidation, wrapCtrl(noticeByIdCtrl));
 
 router.use(checkJWT);

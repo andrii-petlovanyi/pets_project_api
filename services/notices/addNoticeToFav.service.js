@@ -3,7 +3,7 @@ const User = require('../../models/user.model');
 const addNoticeToFav = async (userId, noticeId) => {
   await User.findByIdAndUpdate(
     { _id: userId },
-    { favorites: noticeId },
+    { $push: { favorites: noticeId } },
     { new: true },
   );
   return;

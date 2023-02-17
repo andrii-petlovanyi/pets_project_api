@@ -24,7 +24,7 @@ const userSchema = new Schema(
     },
     birthday: {
       type: Date,
-      default: '00.00.0000',
+      default: '01.01.1977',
     },
     phone: {
       type: String,
@@ -36,20 +36,22 @@ const userSchema = new Schema(
       default: null,
     },
     avatarURL: String,
-    pets: [
-      {
-        name: {
-          type: String,
-          required: [true, 'Name is required'],
-        },
-        birth: {
-          type: Date,
-          default: '00.00.0000',
-        },
-        breed: { type: String, default: '' },
-        comments: { type: String, default: '' },
-      },
-    ],
+    pets: [],
+    // pets: [
+    //   {
+    //     name: {
+    //       type: String,
+    //       required: [true, 'Name is required'],
+    //     },
+    //     birth: {
+    //       type: Date,
+    //       default: '00.00.0000',
+    //     },
+    //     avatar: { type: String },
+    //     breed: { type: String, default: '' },
+    //     comments: { type: String, default: '' },
+    //   },
+    // ],
     favorites: [
       {
         type: Schema.Types.ObjectId,

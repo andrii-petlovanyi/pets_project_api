@@ -1,6 +1,7 @@
 const User = require('../../models/user.model');
 const { NotAuthorizedError } = require('../../helpers/errors');
 const { generateToken } = require('../../helpers/generateToken');
+const Pet = require('../../models/pets.model');
 
 const login = async ({ email, password }) => {
   const user = await User.findOne({ email });
@@ -10,15 +11,17 @@ const login = async ({ email, password }) => {
 
   const token = generateToken(user);
 
+  const petsList = await Pet.find({ owner: user._id });
+
   const updatedUser = await User.findOneAndUpdate(
     user._id,
-    { token },
+    { token, pets: [...petsList] },
     { new: true },
   )
     .select('-password -createdAt -updatedAt')
     .exec();
 
-  return updatedUser;
+  return { updatedUser };
 };
 
 module.exports = { login };
