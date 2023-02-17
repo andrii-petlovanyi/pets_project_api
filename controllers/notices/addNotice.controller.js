@@ -6,7 +6,12 @@ const addNoticeCtrl = async (req, res) => {
 
   const notice = await addNotice(id, body);
 
-  res.status(201).json(notice);
+  res.status(201).json({
+    status: 'success',
+    message: 'Notice added successfully!',
+    code: 201,
+    notice,
+  });
 };
 
 module.exports = addNoticeCtrl;

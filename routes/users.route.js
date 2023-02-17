@@ -48,6 +48,7 @@ router.delete(
 
 // router.path('/:idUser');
 
+
 // router.patch(
 //   '/avatars',
 //   checkJWT,
