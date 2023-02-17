@@ -8,15 +8,15 @@ const noticeAddSchema = Joi.object({
     .valid(...categoryList)
     .required(),
   title: Joi.string().min(2).max(48).required(),
-  name: Joi.string().min(2).max(16).optional(),
-  birthday: Joi.string().optional(),
+  petName: Joi.string().min(2).max(16).optional(),
+  birth: Joi.string().optional(),
   breed: Joi.string().min(2).max(24).optional(),
-  sex: Joi.string()
+  petSex: Joi.string()
     .valid(...sexList)
     .required(),
   location: Joi.string().required(),
   price: Joi.number().optional(),
-  imageURL: Joi.string().optional(),
+  petImage: Joi.string().optional(),
   comments: Joi.string().min(8).max(120).optional(),
 });
 
