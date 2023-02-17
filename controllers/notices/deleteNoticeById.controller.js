@@ -1,4 +1,5 @@
 const {deleteNotice} = require("../../services/notices/deleteNotice.service")
+<<<<<<< Updated upstream
 const CustomError = require("../../helpers/errors")
 
 const deleteNoticeById = async (req, res) => {
@@ -17,4 +18,18 @@ const deleteNoticeById = async (req, res) => {
   
 module.exports = {
     deleteNoticeById
+=======
+
+const deleteNoticeByIdCtrl = async (req, res) => {
+    const { noticeId } = req.params;
+    const { id: userId } = req.user;
+    const data = await deleteNotice(noticeId, userId);
+
+
+    return res.status(200).json({ message: "successful", data });
+};
+
+module.exports = {
+    deleteNoticeByIdCtrl
+>>>>>>> Stashed changes
 };
