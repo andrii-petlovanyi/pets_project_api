@@ -14,6 +14,7 @@ const { schemaUser } = require('../validations/user.validation');
 const { exitUser } = require('../controllers/users/logout.controller');
 const {
   addNoticeToFavoritesCtrl,
+  deleteNoticeFromFavoritesCtrl,
 } = require('../controllers/users/favorite.controller');
 const idValidation = require('../middlewares/idValidation');
 
@@ -28,6 +29,12 @@ router.patch(
   '/favorites/:idNotice',
   idValidation,
   wrapCtrl(addNoticeToFavoritesCtrl),
+);
+
+router.delete(
+  '/favorites/:idNotice',
+  idValidation,
+  wrapCtrl(deleteNoticeFromFavoritesCtrl),
 );
 
 // router.patch(
