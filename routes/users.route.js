@@ -10,8 +10,11 @@ const {
   updateUserInfo,
 } = require('../controllers/users/updateUser.controller');
 const { reqValidation } = require('../middlewares/reqValidation');
-const { schemaUser } = require('../validations/user.validation');
+const { schemaUser,  loginSchema,  registerSchema } = require('../validations/user.validation');//DIANA
 const { exitUser } = require('../controllers/users/logout.controller');
+const { register } = require('../controllers/users/register.controller');//DIANA
+const { login } = require('../controllers/users/login.controller');//DIANA
+
 
 router.get('/current', checkJWT, wrapCtrl(userInfo));
 router.patch(
@@ -32,6 +35,10 @@ router.patch(
 //     });
 //   },
 // );
+//DIANA>>
+router.post("/register",reqValidation(registerSchema),wrapCtrl(register));
+router.post("/login",reqValidation(loginSchema),wrapCtrl(login));
+//DIANA<<
 router.get('/logout', checkJWT, wrapCtrl(exitUser));
 
 module.exports = router;

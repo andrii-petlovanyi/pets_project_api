@@ -10,9 +10,9 @@ const reqValidation = schema => {
 
     const { error } = await schema.validate(body);
 
-    if (error) {
+     if (error) {
       next(new CustomError(error.message));
-    }
+    } 
 
     next();
   };
