@@ -17,7 +17,13 @@ const register = async body => {
   newUser.setToken(token);
 
   await newUser.save();
-  return newUser;
+
+  const updated = newUser.toObject();
+  delete updated.password;
+  delete updated.createdAt;
+  delete updated.updatedAt;
+
+  return updated;
 };
 
 module.exports = { register };
