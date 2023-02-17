@@ -1,26 +1,33 @@
 const {
-  addNoticeToFavorites,
-} = require('../../services/users/addNoticeToFavorites.service');
+  addNoticeToFav,
+} = require('../../services/users/addNoticeToFav.service');
 const {
-  deleteNoticeFromFavorites,
-} = require('../../services/users/deleteNoticeFromFavorites.service');
+  deleteNoticeFromFav,
+} = require('../../services/users/deleteNoticeFromFav.service');
 
-const addNoticeToFavoritesCtrl = async (req, res) => {
+const addNoticeToFavCtrl = async (req, res) => {
   const userId = req.user.id;
   const noticeId = req.params.noticeId;
 
-  await addNoticeToFavorites(userId, noticeId);
-  res
-    .status(200)
-    .json({ message: `Notice is successfully added!`, statusCode: 200 });
+  await addNoticeToFav(userId, noticeId);
+
+  res.status(200).json({
+    status: 'success',
+    message: `Notice with id ${noticeId} added successfully to favorites lists!`,
+    code: 200,
+  });
 };
 
-const deleteNoticeFromFavoritesCtrl = async (req, res) => {
+const deleteNoticeFromFavCtrl = async (req, res) => {
   const userId = req.user.id;
   const noticeId = req.params.noticeId;
 
-  await deleteNoticeFromFavorites(userId, noticeId);
+  await deleteNoticeFromFav(userId, noticeId);
 
-  res.status(200).json({ message: 'Notice deleted from favorite' });
+  res.status(200).json({
+    status: 'success',
+    message: `Notice with id ${noticeId} successfully removed from favorites lists!`,
+    code: 200,
+  });
 };
-module.exports = { addNoticeToFavoritesCtrl, deleteNoticeFromFavoritesCtrl };
+module.exports = { addNoticeToFavCtrl, deleteNoticeFromFavCtrl };

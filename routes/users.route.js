@@ -10,35 +10,37 @@ const {
 } = require('../controllers/users/updateUser.controller');
 const reqValidation = require('../middlewares/reqValidation');
 const {
-  addNoticeToFavoritesCtrl,
-  deleteNoticeFromFavoritesCtrl,
+  addNoticeToFavCtrl,
+  deleteNoticeFromFavCtrl,
 } = require('../controllers/users/favorite.controller');
 const idValidation = require('../middlewares/idValidation');
 const {
   schemaUser,
   loginSchema,
   registerSchema,
-} = require('../validations/user.validation'); //DIANA
+} = require('../validations/user.validation');
 const { logOutCtrl } = require('../controllers/users/logout.controller');
-const registerCtrl = require('../controllers/users/register.controller'); //DIANA
-const { loginCtrl } = require('../controllers/users/login.controller'); //DIANA
+const registerCtrl = require('../controllers/users/register.controller');
+const { loginCtrl } = require('../controllers/users/login.controller');
+const currentUserCtrl = require('../controllers/users/currentUser.controller');
 
+router.post('/register', reqValidation(registerSchema), wrapCtrl(registerCtrl));
+router.post('/login', reqValidation(loginSchema), wrapCtrl(loginCtrl));
+
+router.use(checkJWT);
+router.get('/current', wrapCtrl(currentUserCtrl));
+router.get('/logout', wrapCtrl(logOutCtrl));
+router.patch('/', reqValidation(schemaUser), wrapCtrl(updateUserInfo));
 router.patch(
-  '/',
-  checkJWT,
-  reqValidation(schemaUser),
-  wrapCtrl(updateUserInfo),
-);
-router.patch(
-  '/favorites/:idNotice',
+  '/favorites/:noticeId',
   idValidation,
-  wrapCtrl(addNoticeToFavoritesCtrl),
+  wrapCtrl(addNoticeToFavCtrl),
 );
 
 router.delete(
-  '/favorites/:idNotice',
+  '/favorites/:noticeId',
   idValidation,
-  wrapCtrl(deleteNoticeFromFavoritesCtrl),
+  wrapCtrl(deleteNoticeFromFavCtrl),
 );
 // router.post('/:idUser/pets');
 // router.delete('/:idUser/pets');
@@ -56,8 +58,5 @@ router.delete(
 //     });
 //   },
 // );
-router.post('/register', reqValidation(registerSchema), wrapCtrl(registerCtrl));
-router.post('/login', reqValidation(loginSchema), wrapCtrl(loginCtrl));
-router.get('/logout', checkJWT, wrapCtrl(logOutCtrl));
 
 module.exports = router;
