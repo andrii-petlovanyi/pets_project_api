@@ -15,5 +15,6 @@ noticesRouter.post(
   reqValidation(noticeAddSchema),
   wrapCtrl(addNoticeCtrl),
 );
+noticesRouter.get('/', checkJWT, wrapCtrl(noticeListCtrl));
 
 module.exports = noticesRouter;
