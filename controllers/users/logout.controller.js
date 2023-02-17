@@ -5,7 +5,7 @@ const logOutCtrl = async (req, res) => {
 
   await logOut(id);
 
-  res.status(204).json({ message: 'You are log out successfully!' });
+  res.status(204).json();
 };
 
 module.exports = { logOutCtrl };
