@@ -13,6 +13,13 @@ const {
 } = require('../controllers/notices/noticeList.controller');
 const idValidation = require('../middlewares/idValidation');
 const {
+
+  noticeByIdCtrl,
+} = require('../controllers/notices/noticeById.controller');
+const {
+  deleteNoticeByIdCtrl
+} = require("../controllers/notices/deleteNoticeById.controller")
+
   noticeByIdCtrl,
 } = require('../controllers/notices/noticeById.controller');
 
@@ -29,5 +36,13 @@ noticesRouter.get(
   idValidation,
   wrapCtrl(noticeByIdCtrl),
 );
+
+noticesRouter.delete(
+  '/:noticeId',
+  checkJWT,
+  idValidation,
+  wrapCtrl(deleteNoticeByIdCtrl),
+);
+
 
 module.exports = noticesRouter;
