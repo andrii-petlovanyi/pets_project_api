@@ -8,6 +8,7 @@ const deleteNoticeCtrl = async (req, res) => {
 
   return res.status(200).json({
     status: 'success',
+    message: 'Notice was deleted successfully!',
     code: 200,
   });
 };
