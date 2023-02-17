@@ -23,12 +23,12 @@ const { logOutCtrl } = require('../controllers/users/logout.controller');
 const registerCtrl = require('../controllers/users/register.controller'); //DIANA
 const { loginCtrl } = require('../controllers/users/login.controller'); //DIANA
 
-router.patch(
-  '/',
-  checkJWT,
-  reqValidation(schemaUser),
-  wrapCtrl(updateUserInfo),
-);
+router.post('/register', reqValidation(registerSchema), wrapCtrl(registerCtrl));
+router.post('/login', reqValidation(loginSchema), wrapCtrl(loginCtrl));
+
+router.use(checkJWT);
+router.get('/logout', wrapCtrl(logOutCtrl));
+router.patch('/', reqValidation(schemaUser), wrapCtrl(updateUserInfo));
 router.patch(
   '/favorites/:idNotice',
   idValidation,
@@ -56,8 +56,5 @@ router.delete(
 //     });
 //   },
 // );
-router.post('/register', reqValidation(registerSchema), wrapCtrl(registerCtrl));
-router.post('/login', reqValidation(loginSchema), wrapCtrl(loginCtrl));
-router.get('/logout', checkJWT, wrapCtrl(logOutCtrl));
 
 module.exports = router;
