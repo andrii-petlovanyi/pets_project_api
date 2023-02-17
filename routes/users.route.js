@@ -32,6 +32,21 @@ router.patch(
   reqValidation(schemaUser),
   wrapCtrl(updateUserInfo),
 );
+router.patch(
+  '/favorites/:idNotice',
+  idValidation,
+  wrapCtrl(addNoticeToFavoritesCtrl),
+);
+
+router.delete(
+  '/favorites/:idNotice',
+  idValidation,
+  wrapCtrl(deleteNoticeFromFavoritesCtrl),
+);
+// router.post('/:idUser/pets');
+// router.delete('/:idUser/pets');
+
+// router.path('/:idUser');
 
 // router.patch(
 //   '/avatars',
