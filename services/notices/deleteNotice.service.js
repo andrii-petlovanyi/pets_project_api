@@ -1,29 +1,15 @@
-<<<<<<< Updated upstream
-const {Notices} = require("../../models/notices.model")
+const Notice = require('../../models/notices.model');
+const { CustomError } = require('../../helpers/errors');
 
-const deleteNotice = async (noticeId, owner) => {
-    const remove = await Notices.findOneAndDelete({ _id: noticeId, owner });
+const deleteNotice = async noticeId => {
+  const deleteNotice = await Notice.findOneAndDelete({ _id: noticeId });
 
-    return remove;
+  if (!deleteNotice) {
+    throw new CustomError(`Sorry, but notice with id ${noticeId} not found`);
+  }
+  return;
 };
 
 module.exports = {
-deleteNotice
+  deleteNotice,
 };
-=======
-const Notices = require("../../models/notices.model")
-const { CustomError } = require('../../helpers/errors');
-
- const deleteNotice = async (noticeId) => {
-    const deleteNotice = await Notices.findOneAndDelete({ _id: noticeId });
-
-    if (!deleteNotice) {
-    throw new CustomError(`Sorry, but notice with id ${noticeId} not found`);
-    }
-    return deleteNotice;
- };
-
- module.exports = {
- deleteNotice
- };
->>>>>>> Stashed changes

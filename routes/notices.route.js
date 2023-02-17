@@ -1,27 +1,22 @@
 const express = require('express');
 const noticesRouter = express.Router();
 
+const checkJWT = require('../middlewares/checkJWT');
 const { wrapCtrl } = require('../middlewares/wrapCtrl');
-
-const addNoticeCtrl = require('../controllers/notices/addNotice.controller');
+const noticeAddSchema = require('../validations/notices.validation');
 const reqValidation = require('../middlewares/reqValidation');
 
-const noticeAddSchema = require('../validations/notices.validation');
-const checkJWT = require('../middlewares/checkJWT');
+const addNoticeCtrl = require('../controllers/notices/addNotice.controller');
 const {
   noticeListCtrl,
 } = require('../controllers/notices/noticeList.controller');
 const idValidation = require('../middlewares/idValidation');
 const {
-
   noticeByIdCtrl,
 } = require('../controllers/notices/noticeById.controller');
 const {
-  deleteNoticeByIdCtrl
-} = require("../controllers/notices/deleteNoticeById.controller")
-
-  noticeByIdCtrl,
-} = require('../controllers/notices/noticeById.controller');
+  deleteNoticeCtrl,
+} = require('../controllers/notices/deleteNotice.controller');
 
 noticesRouter.post(
   '/',
@@ -41,8 +36,7 @@ noticesRouter.delete(
   '/:noticeId',
   checkJWT,
   idValidation,
-  wrapCtrl(deleteNoticeByIdCtrl),
+  wrapCtrl(deleteNoticeCtrl),
 );
-
 
 module.exports = noticesRouter;
