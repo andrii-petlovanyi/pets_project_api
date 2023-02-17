@@ -1,6 +1,6 @@
 const User = require('../../models/user.model');
 
-const addNoticeToFavorites = async (userId, noticeId) => {
+const addNoticeToFav = async (userId, noticeId) => {
   await User.findByIdAndUpdate(
     { _id: userId },
     { favorites: noticeId },
@@ -9,4 +9,4 @@ const addNoticeToFavorites = async (userId, noticeId) => {
   return;
 };
 
-module.exports = { addNoticeToFavorites };
+module.exports = { addNoticeToFav };
