@@ -10,6 +10,11 @@ const {
 } = require('../controllers/users/updateUser.controller');
 const reqValidation = require('../middlewares/reqValidation');
 const {
+  addNoticeToFavoritesCtrl,
+  deleteNoticeFromFavoritesCtrl,
+} = require('../controllers/users/favorite.controller');
+const idValidation = require('../middlewares/idValidation');
+const {
   schemaUser,
   loginSchema,
   registerSchema,
@@ -24,6 +29,21 @@ router.patch(
   reqValidation(schemaUser),
   wrapCtrl(updateUserInfo),
 );
+router.patch(
+  '/favorites/:idNotice',
+  idValidation,
+  wrapCtrl(addNoticeToFavoritesCtrl),
+);
+
+router.delete(
+  '/favorites/:idNotice',
+  idValidation,
+  wrapCtrl(deleteNoticeFromFavoritesCtrl),
+);
+// router.post('/:idUser/pets');
+// router.delete('/:idUser/pets');
+
+// router.path('/:idUser');
 
 // router.patch(
 //   '/avatars',

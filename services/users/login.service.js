@@ -10,11 +10,13 @@ const login = async ({ email, password }) => {
 
   const token = generateToken(user);
 
-  const updatedUser = await User.findByIdAndUpdate(
+  const updatedUser = await User.findOneAndUpdate(
     user._id,
     { token },
     { new: true },
-  );
+  )
+    .select('-password -createdAt -updatedAt')
+    .exec();
 
   return updatedUser;
 };

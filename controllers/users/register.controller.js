@@ -4,7 +4,6 @@ const registerCtrl = async (req, res) => {
   const body = req.body;
 
   const user = await register(body);
-  delete user.password;
 
   res.status(201).json({
     status: 'success',

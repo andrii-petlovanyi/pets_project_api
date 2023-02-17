@@ -8,16 +8,16 @@ const noticeAddSchema = Joi.object({
     .valid(...categoryList)
     .required(),
   title: Joi.string().min(2).max(48).required(),
-  name: Joi.string().min(2).max(16).optional(),
-  birthday: Joi.string().optional(),
-  breed: Joi.string().min(2).max(24).optional(),
-  sex: Joi.string()
+  petName: Joi.string().min(2).max(16),
+  birth: Joi.string(),
+  breed: Joi.string().min(2).max(24),
+  petSex: Joi.string()
     .valid(...sexList)
     .required(),
   location: Joi.string().required(),
-  price: Joi.number().optional(),
-  imageURL: Joi.string().optional(),
-  comments: Joi.string().min(8).max(120).optional(),
+  price: Joi.number(),
+  petImage: Joi.string(),
+  comments: Joi.string().min(8).max(120),
 });
 
 module.exports = noticeAddSchema;

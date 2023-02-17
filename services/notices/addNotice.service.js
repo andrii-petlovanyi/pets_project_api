@@ -1,12 +1,11 @@
-const { Notices } = require('../../models/notices.model');
+const Notice = require('../../models/notices.model');
 
 const addNotice = async (id, body) => {
-  const notice = await Notices.create({
-    ...req.body,
+  const notice = await Notice.create({
+    ...body,
     owner: id,
-    email,
-    phone,
   });
+
 
   return notice;
 };
