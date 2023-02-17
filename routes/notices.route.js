@@ -9,8 +9,12 @@ const {
 const {
   addNoticeController,
 } = require('../controllers/notices/addNotice.controller');
+const {
+  favoritesNoticesController,
+} = require('../controllers/notices/favoritesNotices.controller');
 
 noticesRouter.get('/', wrapCtrl(noticesController));
 noticesRouter.get('/', wrapCtrl(addNoticeController));
+noticesRouter.get('/favorites', wrapCtrl(favoritesNoticesController));
 
 module.exports = noticesRouter;
