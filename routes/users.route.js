@@ -23,6 +23,9 @@ const { logOutCtrl } = require('../controllers/users/logout.controller');
 const registerCtrl = require('../controllers/users/register.controller');
 const { loginCtrl } = require('../controllers/users/login.controller');
 const currentUserCtrl = require('../controllers/users/currentUser.controller');
+const {
+  favoritesNoticesController,
+} = require('../controllers/users/favoritesNotices.controller');
 
 router.post('/register', reqValidation(registerSchema), wrapCtrl(registerCtrl));
 router.post('/login', reqValidation(loginSchema), wrapCtrl(loginCtrl));
@@ -36,7 +39,7 @@ router.patch(
   idValidation,
   wrapCtrl(addNoticeToFavCtrl),
 );
-
+router.get('/favorites', wrapCtrl(favoritesNoticesController));
 router.delete(
   '/favorites/:noticeId',
   idValidation,
