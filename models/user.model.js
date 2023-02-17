@@ -24,7 +24,7 @@ const userSchema = new Schema(
     },
     birthday: {
       type: Date,
-      default: Date.now,
+      default: '00.00.0000',
     },
     phone: {
       type: String,
@@ -44,7 +44,7 @@ const userSchema = new Schema(
         },
         birth: {
           type: Date,
-          default: Date.now,
+          default: '00.00.0000',
         },
         breed: { type: String, default: '' },
         comments: { type: String, default: '' },

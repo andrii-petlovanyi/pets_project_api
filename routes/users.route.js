@@ -33,7 +33,7 @@ router.post('/login', reqValidation(loginSchema), wrapCtrl(loginCtrl));
 router.use(checkJWT);
 router.get('/current', wrapCtrl(currentUserCtrl));
 router.get('/logout', wrapCtrl(logOutCtrl));
-router.patch('/', reqValidation(schemaUser), wrapCtrl(updateUserInfo));
+router.patch('/update', wrapCtrl(updateUserInfo));
 router.patch(
   '/favorites/:noticeId',
   idValidation,
