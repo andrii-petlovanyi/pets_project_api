@@ -34,15 +34,11 @@ router.use(checkJWT);
 router.get('/current', wrapCtrl(currentUserCtrl));
 router.get('/logout', wrapCtrl(logOutCtrl));
 router.patch(
-  '/update',
-  reqValidation(updateUserSchema),
-  wrapCtrl(updateUserInfo),
-);
-router.patch(
   '/favorites/:noticeId',
   idValidation,
   wrapCtrl(addNoticeToFavCtrl),
 );
+router.patch('/', reqValidation(updateUserSchema), wrapCtrl(updateUserInfo));
 router.get('/favorites', wrapCtrl(favoritesNoticesController));
 router.delete(
   '/favorites/:noticeId',
