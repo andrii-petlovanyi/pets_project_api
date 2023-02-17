@@ -24,6 +24,12 @@ router.patch(
   reqValidation(schemaUser),
   wrapCtrl(updateUserInfo),
 );
+// router.post('/:idUser/pets');
+// router.delete('/:idUser/pets');
+
+// router.path('/:idUser');
+
+
 
 // router.patch(
 //   '/avatars',

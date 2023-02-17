@@ -28,7 +28,7 @@ app.use('/api/notices', noticesRouter);
 app.use('/api/friends', friendsRouter);
 app.use('/api/news', newsRouter);
 
-app.use('/', swaggerUI.serve, swaggerUI.setup(swaggerDoc));
+app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDoc));
 
 app.use((_, res) => {
   res.status(404).json({ message: 'Sorry, but this resource not found' });
