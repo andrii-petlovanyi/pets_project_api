@@ -31,7 +31,7 @@
     "/notices": {
       "get": {
         "tags": ["Notices"],
-        "summary": "All notices",
+        "summary": "Find all notices",
         "parameters": [
           {
             "name": "category",
@@ -75,6 +75,77 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/NoticesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": ["Notices"],
+        "summary": "Add a new notice",
+        "requestBody": {
+          "description": "Registration's object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NoticeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticeById"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/notices/{noticeId}": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Find notice by Id",
+        "parameters": [
+          {
+            "name": "noticeId",
+            "in": "path",
+            "description": "ID of notice to return",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticeById"
                 }
               }
             }
@@ -215,10 +286,85 @@
           }
         }
       }
+    },
+    "/users/current": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get current user",
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "Update current user",
+        "requestBody": {
+          "description": "Updated object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful update operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Anna"
+          },
+          "email": {
+            "type": "string",
+            "example": "support@example.com"
+          },
+          "birthday": {
+            "type": "string",
+            "example": "20.02.2002"
+          },
+          "phone": {
+            "type": "string",
+            "example": 380679876543
+          },
+          "city": {
+            "type": "string",
+            "example": "Kyiv"
+          },
+          "avatarURL": {
+            "type": "string",
+            "example": null
+          }
+        }
+      },
       "RegistrationRequest": {
         "type": "object",
         "required": ["email", "password", "confirmPassword"],
@@ -423,6 +569,152 @@
             "owner": "65897777"
           }
         ]
+      },
+      "NoticeRequest": {
+        "type": "object",
+        "required": ["title", "petSex", "location", "price"],
+        "properties": {
+          "category": {
+            "type": "string",
+            "description": "Category of notice",
+            "example": "sell"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of notice",
+            "example": "Cute dog"
+          },
+          "petName": {
+            "type": "string",
+            "description": "Name of pet",
+            "example": "Luck"
+          },
+          "birth": {
+            "type": "string",
+            "description": "Date of birth",
+            "example": "20.09.2020"
+          },
+          "breed": {
+            "type": "string",
+            "description": "Breed of pet",
+            "example": "Pomeranian"
+          },
+          "petSex": {
+            "type": "string",
+            "description": "Sex of pet",
+            "example": "male"
+          },
+          "location": {
+            "type": "string",
+            "description": "Location of pet",
+            "example": "Lviv"
+          },
+          "price": {
+            "type": "number",
+            "description": "Price of pet",
+            "example": 50
+          },
+          "petImage": {
+            "type": "string",
+            "description": "Image of pet",
+            "example": "https://editor.swagger.io/"
+          },
+          "comments": {
+            "type": "string",
+            "description": "Сomments about pet",
+            "example": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. "
+          },
+          "owner": {
+            "type": "string",
+            "description": "User's id owner of notice",
+            "example": "125546464"
+          }
+        },
+        "example": {
+          "category": "sell",
+          "title": "Cute dog",
+          "petName": "Luck",
+          "birth": "20.09.2020",
+          "breed": "Pomeranian",
+          "petSex": "male",
+          "location": "Lviv",
+          "price": 50,
+          "petImage": "",
+          "comments": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. "
+        }
+      },
+      "NoticeById": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string",
+            "description": "Category of notice",
+            "example": "sell"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of notice",
+            "example": "Cute dog"
+          },
+          "petName": {
+            "type": "string",
+            "description": "Name of pet",
+            "example": "Luck"
+          },
+          "birth": {
+            "type": "string",
+            "description": "Date of birth",
+            "example": "20.09.2020"
+          },
+          "breed": {
+            "type": "string",
+            "description": "Breed of pet",
+            "example": "Pomeranian"
+          },
+          "petSex": {
+            "type": "string",
+            "description": "Sex of pet",
+            "example": "male"
+          },
+          "location": {
+            "type": "string",
+            "description": "Location of pet",
+            "example": "Lviv"
+          },
+          "price": {
+            "type": "number",
+            "description": "Price of pet",
+            "example": 50
+          },
+          "petImage": {
+            "type": "string",
+            "description": "Image of pet",
+            "example": "https://editor.swagger.io/"
+          },
+          "comments": {
+            "type": "string",
+            "description": "Сomments about pet",
+            "example": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. "
+          },
+          "owner": {
+            "type": "string",
+            "description": "User's id owner of notice",
+            "example": "125546464"
+          }
+        },
+        "example": {
+          "category": "sell",
+          "title": "Cute dog",
+          "petName": "Luck",
+          "birth": "20.09.2020",
+          "breed": "Pomeranian",
+          "petSex": "male",
+          "location": "Lviv",
+          "price": 50,
+          "petImage": "",
+          "comments": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ",
+          "owner": "125546464"
+        }
       },
       "Friend": {
         "type": "object",

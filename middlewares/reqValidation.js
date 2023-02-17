@@ -1,4 +1,4 @@
-const CustomError = require('../helpers/errors');
+const { CustomError } = require('../helpers/errors');
 
 const reqValidation = schema => {
   const func = async (req, res, next) => {
@@ -20,7 +20,7 @@ const reqValidation = schema => {
   return func;
 };
 
-module.exports = { reqValidation };
+module.exports = reqValidation;
 
 //example use
 // router.post('/', reqValidation(postJoiSchema), wrapCtrl(addPostCtrl));
