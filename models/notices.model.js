@@ -12,6 +12,7 @@ const Notice = new Schema(
     title: {
       type: String,
       required: [true, 'Set add title'],
+      //TODO: mb unique???
     },
     petName: {
       type: String,

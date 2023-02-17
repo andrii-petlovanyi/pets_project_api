@@ -8,15 +8,12 @@ const checkJWT = require('../middlewares/checkJWT');
 const {
   updateUserInfo,
 } = require('../controllers/users/updateUser.controller');
-const { reqValidation } = require('../middlewares/reqValidation');
-const { schemaUser } = require('../validations/user.validation');
-const { exitUser } = require('../controllers/users/logout.controller');
+const reqValidation = require('../middlewares/reqValidation');
 const {
   addNoticeToFavoritesCtrl,
   deleteNoticeFromFavoritesCtrl,
 } = require('../controllers/users/favorite.controller');
 const idValidation = require('../middlewares/idValidation');
-const reqValidation = require('../middlewares/reqValidation');
 const {
   schemaUser,
   loginSchema,
@@ -47,7 +44,6 @@ router.delete(
 // router.delete('/:idUser/pets');
 
 // router.path('/:idUser');
-
 
 // router.patch(
 //   '/avatars',

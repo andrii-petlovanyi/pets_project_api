@@ -5,7 +5,7 @@ const addNotice = async (id, body) => {
     ...body,
     owner: id,
   });
-  console.log(notice);
+
 
   return notice;
 };
