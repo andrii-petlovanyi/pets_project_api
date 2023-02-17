@@ -1,9 +1,11 @@
-const { logout } = require('../../services/users/logout.service');
+const { logOut } = require('../../services/users/logout.service');
 
-const logoutCtrl = async (req, res, next) => {
-  await logout(req.user.userId);
+const logOutCtrl = async (req, res) => {
+  const { id } = req.user;
 
-  return res.status(204).send({});
+  await logOut(id);
+
+  res.status(204).json({ message: 'You are log out successfully!' });
 };
 
-module.exports = { logoutCtrl };
+module.exports = { logOutCtrl };

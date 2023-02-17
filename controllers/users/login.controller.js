@@ -1,33 +1,17 @@
-const { UserScheme } = require('../../models/user.model');
-const { errorHandler} = require("../../helpers/errorHandler");
-const {  generateTokens } = require("../../helpers/generateToken");
-const bcrypt = require("bcryptjs");
+const { login } = require('../../services/users/login.service');
 
-const login = async (req, res) => {
-  const { email, password } = req.body;
-  let user = await UserScheme.findOne({ email });
-  if (!user) {
-    throw errorHandler(" Email or password invalid"); 
-  }
+const loginCtrl = async (req, res) => {
+  const body = req.body;
 
-  const passwordCompare = await bcrypt.compare(password, user.password);
-  if (!passwordCompare) {
-    throw errorHandler(" Email or password invalid"); 
-  }
+  const user = await login(body);
+  delete user.password;
 
-  const { accessToken } = await generateTokens(user._id);
-
-  await UserScheme.findByIdAndUpdate(user._id, { accessToken });
-  user = await UserScheme.findById(user._id, {
-    accessToken: 1,
-    email: 1,
-    phone: 1,
-    _id: 1,
-  });
-
-  res.json({
+  console.log(user);
+  res.status(200).json({
+    status: 'success',
+    code: 200,
     user,
   });
 };
 
-module.exports = { login };
+module.exports = { loginCtrl };

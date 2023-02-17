@@ -1,42 +1,17 @@
-const { UserScheme } = require("../../models/user.model");
-const { errorsHandler } = require("../../helpers/errorHandler");
-const { generateTokens } = require("../../helpers/generateToken");
+const { register } = require('../../services/users/register.service');
 
-const bcrypt = require("bcryptjs");
-const gravatar = require("gravatar");
-const dotenv = require("dotenv");
-dotenv.config();
+const registerCtrl = async (req, res) => {
+  const body = req.body;
 
-const register = async (req, res) => {
-  const { email, password, name, city, phone } = req.body;
-  const user = await UserScheme.findOne({ email });
-  if (user) {
-    errorsHandler(" Email in use");
-  }
+  const user = await register(body);
+  delete user.password;
 
-  const hashPassword = await bcrypt.hash(password, 10);
-  const avatarUrl = gravatar.url(email);
-
-  const newUser = await UserScheme.create({
-    email,
-    password: hashPassword,
-    avatarUrl,
-    name,
-    city,
-    phone,
-  });
-  
-  const { accessToken } = await generateTokens(newUser._id);
-
-  await UserScheme.findByIdAndUpdate(newUser._id, { accessToken });
   res.status(201).json({
-    user: {
-      id: newUser._id,
-      email: newUser.email,
-      name: newUser.name,
-    },
-    accessToken,
+    status: 'success',
+    code: 201,
+    message: 'You are sign up successfully!',
+    user,
   });
 };
 
-module.exports = { register };
+module.exports = registerCtrl;

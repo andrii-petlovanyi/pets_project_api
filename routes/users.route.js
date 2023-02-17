@@ -9,12 +9,15 @@ const { userInfo } = require('../controllers/users/userInfo.controller');
 const {
   updateUserInfo,
 } = require('../controllers/users/updateUser.controller');
-const { reqValidation } = require('../middlewares/reqValidation');
-const { schemaUser,  loginSchema,  registerSchema } = require('../validations/user.validation');//DIANA
-const { exitUser } = require('../controllers/users/logout.controller');
-const { register } = require('../controllers/users/register.controller');//DIANA
-const { login } = require('../controllers/users/login.controller');//DIANA
-
+const reqValidation = require('../middlewares/reqValidation');
+const {
+  schemaUser,
+  loginSchema,
+  registerSchema,
+} = require('../validations/user.validation'); //DIANA
+const { logOutCtrl } = require('../controllers/users/logout.controller');
+const registerCtrl = require('../controllers/users/register.controller'); //DIANA
+const { loginCtrl } = require('../controllers/users/login.controller'); //DIANA
 
 router.get('/current', checkJWT, wrapCtrl(userInfo));
 router.patch(
@@ -35,10 +38,8 @@ router.patch(
 //     });
 //   },
 // );
-//DIANA>>
-router.post("/register",reqValidation(registerSchema),wrapCtrl(register));
-router.post("/login",reqValidation(loginSchema),wrapCtrl(login));
-//DIANA<<
-router.get('/logout', checkJWT, wrapCtrl(exitUser));
+router.post('/register', reqValidation(registerSchema), wrapCtrl(registerCtrl));
+router.post('/login', reqValidation(loginSchema), wrapCtrl(loginCtrl));
+router.get('/logout', checkJWT, wrapCtrl(logOutCtrl));
 
 module.exports = router;

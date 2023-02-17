@@ -7,7 +7,7 @@ require('dotenv').config();
 const swaggerUI = require('swagger-ui-express');
 const swaggerDoc = require('./swagger.json');
 
-const { errorsHandler } = require('./helpers/errorHandler');
+const errorsHandler = require('./helpers/errorHandler');
 
 const usersRouter = require('./routes/users.route');
 const friendsRouter = require('./routes/friends.route');
