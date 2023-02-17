@@ -5,21 +5,45 @@ const router = express.Router();
 
 const { wrapCtrl } = require('../middlewares/wrapCtrl');
 const checkJWT = require('../middlewares/checkJWT');
-const { userInfo } = require('../controllers/users/userInfo.controller');
 const {
   updateUserInfo,
 } = require('../controllers/users/updateUser.controller');
-const { reqValidation } = require('../middlewares/reqValidation');
-const { schemaUser } = require('../validations/user.validation');
-const { exitUser } = require('../controllers/users/logout.controller');
+const reqValidation = require('../middlewares/reqValidation');
+const {
+  addNoticeToFavoritesCtrl,
+  deleteNoticeFromFavoritesCtrl,
+} = require('../controllers/users/favorite.controller');
+const idValidation = require('../middlewares/idValidation');
+const {
+  schemaUser,
+  loginSchema,
+  registerSchema,
+} = require('../validations/user.validation'); //DIANA
+const { logOutCtrl } = require('../controllers/users/logout.controller');
+const registerCtrl = require('../controllers/users/register.controller'); //DIANA
+const { loginCtrl } = require('../controllers/users/login.controller'); //DIANA
 
-router.get('/current', checkJWT, wrapCtrl(userInfo));
 router.patch(
   '/',
   checkJWT,
   reqValidation(schemaUser),
   wrapCtrl(updateUserInfo),
 );
+router.patch(
+  '/favorites/:idNotice',
+  idValidation,
+  wrapCtrl(addNoticeToFavoritesCtrl),
+);
+
+router.delete(
+  '/favorites/:idNotice',
+  idValidation,
+  wrapCtrl(deleteNoticeFromFavoritesCtrl),
+);
+// router.post('/:idUser/pets');
+// router.delete('/:idUser/pets');
+
+// router.path('/:idUser');
 
 // router.patch(
 //   '/avatars',
@@ -32,6 +56,8 @@ router.patch(
 //     });
 //   },
 // );
-router.get('/logout', checkJWT, wrapCtrl(exitUser));
+router.post('/register', reqValidation(registerSchema), wrapCtrl(registerCtrl));
+router.post('/login', reqValidation(loginSchema), wrapCtrl(loginCtrl));
+router.get('/logout', checkJWT, wrapCtrl(logOutCtrl));
 
 module.exports = router;

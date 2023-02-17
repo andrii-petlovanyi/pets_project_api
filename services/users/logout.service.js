@@ -1,14 +1,16 @@
 const User = require('../../models/user.model');
+const { NotAuthorizedError } = require('../../helpers/errors');
 
-const logout = async userId => {
-  const user = await User.findOneAndUpdate(
-    { userId },
-    {
-      token: null,
-    },
-    { new: true },
+const logOut = async id => {
+  const user = await User.findByIdAndUpdate(
+    id,
+    { token: null },
+    { runValidators: true },
   );
-  return user;
+
+  if (!user) throw new NotAuthorizedError('Not authorized');
+
+  return;
 };
 
-module.exports = { logout };
+module.exports = { logOut };

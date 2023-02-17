@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const bcryptjs = require('bcryptjs');
 
-const User = new Schema(
+const userSchema = new Schema(
   {
     name: {
       type: String,
@@ -52,14 +53,24 @@ const User = new Schema(
     favorites: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'notice',
+        ref: 'Notices',
       },
     ],
   },
 
-  {
-    timestamps: true,
-  },
+  { versionKey: false, timestamps: true },
 );
 
-module.exports = mongoose.model('User', User);
+userSchema.methods.setPassword = function (password) {
+  this.password = bcryptjs.hashSync(password, bcryptjs.genSaltSync(10));
+};
+
+userSchema.methods.setToken = function (token) {
+  this.token = token;
+};
+
+userSchema.methods.comparePassword = function (password) {
+  return bcryptjs.compareSync(password, this.password);
+};
+
+module.exports = mongoose.model('User', userSchema);
