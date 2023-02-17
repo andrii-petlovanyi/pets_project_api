@@ -30,7 +30,7 @@ const User = new Schema(
       unique: true,
       default: '',
     },
-    token: {
+    accessToken: {
       type: String,
       default: null,
     },
@@ -61,5 +61,6 @@ const User = new Schema(
     timestamps: true,
   },
 );
-
-module.exports = mongoose.model('User', User);
+const UserScheme = mongoose.model("User", User);//DIANA
+module.exports = { UserScheme };//DIANA
+//module.exports = mongoose.model('User', User);
