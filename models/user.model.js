@@ -58,9 +58,7 @@ const userSchema = new Schema(
     ],
   },
 
-  {
-    timestamps: true,
-  },
+  { versionKey: false, timestamps: true },
 );
 
 userSchema.methods.setPassword = function (password) {

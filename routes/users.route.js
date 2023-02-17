@@ -30,7 +30,6 @@ router.patch(
 // router.path('/:idUser');
 
 
-
 // router.patch(
 //   '/avatars',
 //   checkJWT,
