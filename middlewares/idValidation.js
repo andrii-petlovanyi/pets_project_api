@@ -1,5 +1,5 @@
-const isValidObjectId = require('mongoose');
-const CustomError = require('../helpers/errors');
+const { isValidObjectId } = require('mongoose');
+const { CustomError } = require('../helpers/errors');
 
 const idValidation = (req, _, next) => {
   const { userId } = req.params;
@@ -17,7 +17,6 @@ const idValidation = (req, _, next) => {
 };
 
 module.exports = idValidation;
-
 
 //example use
 // router.patch(
