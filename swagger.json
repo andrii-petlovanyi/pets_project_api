@@ -353,6 +353,11 @@
       "get": {
         "tags": ["User"],
         "summary": "Get current user",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "201": {
             "description": "Successful operation",
@@ -360,6 +365,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
                 }
               }
             }
@@ -371,23 +386,68 @@
       "patch": {
         "tags": ["User"],
         "summary": "Update current user",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "requestBody": {
           "description": "Updated object",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/UpdateUserRequest"
               }
             }
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful update operation",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "$ref": "#/components/schemas/UpdateUserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/logout": {
+      "get": {
+        "tags": ["User"],
+        "summary": "User logout",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful log out"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
                 }
               }
             }
@@ -401,6 +461,10 @@
       "User": {
         "type": "object",
         "properties": {
+          "_id": {
+            "type": "string",
+            "example": "63ef81c5986c1693cca9d289"
+          },
           "name": {
             "type": "string",
             "example": "Anna"
@@ -409,21 +473,82 @@
             "type": "string",
             "example": "support@example.com"
           },
-          "birthday": {
+          "city": {
             "type": "string",
-            "example": "20.02.2002"
+            "example": "Kyiv"
           },
           "phone": {
             "type": "string",
             "example": 380679876543
           },
+          "token": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWY4MWM1OTg2YzE2OTNjY2E5ZDI4OSIsImVtYWlsIjoic2hvc3Rha0BnbWFpbC5jb20iLCJpYXQiOjE2NzY3MDY2NTMsImV4cCI6MTY3Njc5MzA1M30.fwUpZchzH_fC2GTF_m1izwN2TdvAKpsWghTKbCULAsY"
+          },
+          "favorites": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "example": {}
+            }
+          },
+          "birthday": {
+            "type": "string",
+            "example": "20.02.2002"
+          },
+          "pets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "example": {}
+            }
+          }
+        }
+      },
+      "UpdateUserRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Anna"
+          },
+          "email": {
+            "type": "string",
+            "example": "support@example.com"
+          },
           "city": {
             "type": "string",
             "example": "Kyiv"
           },
-          "avatarURL": {
+          "phone": {
             "type": "string",
-            "example": null
+            "example": 380679876543
+          },
+          "birthday": {
+            "type": "string",
+            "example": "20.02.2002"
+          }
+        }
+      },
+      "UpdateUserResponse": {
+        "type": "object",
+        "properties": {
+          "stutus": {
+            "type": "string",
+            "description": "Stutus of the operation",
+            "example": "success"
+          },
+          "code": {
+            "type": "number",
+            "description": "Code of the operation",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "example": "Your profile updated successfully!"
+          },
+          "updatedUser": {
+            "$ref": "#/components/schemas/User"
           }
         }
       },
@@ -514,6 +639,15 @@
                 "example": "$2a$10$HC.0E8pZ9rgn.52Jp4Sjy6TK"
               }
             }
+          }
+        }
+      },
+      "UnauthorizedResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Wrong params bearer! Not authorized"
           }
         }
       },
