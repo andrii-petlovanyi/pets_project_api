@@ -454,10 +454,252 @@
           }
         }
       }
+    },
+    "/users/pets": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Add my pets",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "My pet object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddMyPetsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "My pet added successfully!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddMyPetResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/users/pets/{petId}": {
+      "delete": {
+        "tags": ["User"],
+        "summary": "remove pet by id",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "description": "ID of pet to return",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RemoveMyPetResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/users/favorites": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get all favorite pets",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "page limit",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "search",
+            "schema": {
+              "type": "object",
+              "example": null
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FavoritesPets"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "FavoritesPets": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success,"
+          },
+          "code": {
+            "type": "integer",
+            "example": 200
+          },
+          "notices": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "example": "63f0cfd9736f28f300309cff,"
+              },
+              "favorites": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "example": "63f0cfd9736f28f300309cff,"
+                    },
+                    "category": {
+                      "type": "string",
+                      "description": "Category of notice",
+                      "example": "sell"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Title of notice",
+                      "example": "Cute dog"
+                    },
+                    "petName": {
+                      "type": "string",
+                      "description": "Name of pet",
+                      "example": "Luck"
+                    },
+                    "birth": {
+                      "type": "string",
+                      "description": "Date of birth",
+                      "example": "09.09.2020"
+                    },
+                    "breed": {
+                      "type": "string",
+                      "description": "Breed of pet",
+                      "example": "Pomeranian"
+                    },
+                    "petSex": {
+                      "type": "string",
+                      "description": "Sex of pet",
+                      "example": "male"
+                    },
+                    "location": {
+                      "type": "string",
+                      "description": "Location of pet",
+                      "example": "Lviv"
+                    },
+                    "price": {
+                      "type": "number",
+                      "description": "Price of pet",
+                      "example": 50
+                    },
+                    "petImage": {
+                      "type": "string",
+                      "description": "Image of pet",
+                      "example": "https://editor.swagger.io/"
+                    },
+                    "comments": {
+                      "type": "string",
+                      "description": "Сomments about pet",
+                      "example": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy. "
+                    },
+                    "owner": {
+                      "type": "string",
+                      "description": "User's id owner of notice",
+                      "example": "125546464"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "User": {
         "type": "object",
         "properties": {
@@ -662,6 +904,111 @@
           "password": {
             "type": "string",
             "example": "123qweQWE"
+          }
+        }
+      },
+      "Pet": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Patron"
+          },
+          "birth": {
+            "type": "string",
+            "example": 2020
+          },
+          "breed": {
+            "type": "string",
+            "example": "Jack Russell Terrier"
+          },
+          "avatarURL": {
+            "type": "string",
+            "example": null
+          },
+          "comment": {
+            "type": "string",
+            "example": "Small tan and white terriers that technically belong to other breeds are sometimes known erroneously as \\\"Jack Russells\\\"."
+          },
+          "owner": {
+            "type": "string",
+            "example": "63ef81c5986c1693cca9d289"
+          },
+          "_id": {
+            "type": "string",
+            "example": "63f0b3b2b06dba672e91e3b6"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2023-02-18T11:17:06.974Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2023-02-18T11:17:06.974Z"
+          }
+        }
+      },
+      "AddMyPetsRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Patron"
+          },
+          "birth": {
+            "type": "string",
+            "example": 2020
+          },
+          "breed": {
+            "type": "string",
+            "example": "Jack Russell Terrier"
+          },
+          "avatarURL": {
+            "type": "string",
+            "default": "",
+            "example": null
+          },
+          "comment": {
+            "type": "string",
+            "default": "",
+            "example": "Small tan and white terriers that technically belong to other breeds are sometimes known erroneously as \"Jack Russells\"."
+          }
+        }
+      },
+      "AddMyPetResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "code": {
+            "type": "integer",
+            "example": 201
+          },
+          "massage": {
+            "type": "integer",
+            "example": "Pet added successfully!"
+          },
+          "pet": {
+            "$ref": "#/components/schemas/Pet"
+          }
+        }
+      },
+      "RemoveMyPetResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "code": {
+            "type": "integer",
+            "example": 200
+          },
+          "massage": {
+            "type": "integer",
+            "example": "Pet removed successfully!"
           }
         }
       },
