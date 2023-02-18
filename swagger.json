@@ -34,6 +34,15 @@
         "summary": "Find all notices",
         "parameters": [
           {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Finds notice by keyword",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "category",
             "in": "query",
             "description": "Category values that need to be considered for filter",
@@ -102,9 +111,14 @@
             }
           }
         },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
-          "200": {
-            "description": "Successful operation",
+          "201": {
+            "description": "Notice added successfully!",
             "content": {
               "application/json": {
                 "schema": {
@@ -114,6 +128,10 @@
             }
           },
           "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "401": {
             "description": "Bad request",
             "content": {}
           },
@@ -151,6 +169,50 @@
             }
           },
           "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Notices"],
+        "summary": "Delete notice by Id",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "noticeId",
+            "in": "path",
+            "description": "Delete notice from base",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponceDeleteNoticeById"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "401": {
             "description": "Bad request",
             "content": {}
           },
@@ -537,7 +599,7 @@
             "birth": {
               "type": "string",
               "description": "Date of birth",
-              "example": "20.09.2020"
+              "example": "09.09.2020"
             },
             "breed": {
               "type": "string",
@@ -567,7 +629,7 @@
             "comments": {
               "type": "string",
               "description": "Сomments about pet",
-              "example": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. "
+              "example": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam . "
             },
             "owner": {
               "type": "string",
@@ -575,35 +637,7 @@
               "example": "125546464"
             }
           }
-        },
-        "example": [
-          {
-            "category": "sell",
-            "title": "Cute dog",
-            "petName": "Luck",
-            "birth": "20.09.2020",
-            "breed": "Pomeranian",
-            "petSex": "male",
-            "location": "Lviv",
-            "price": 50,
-            "petImage": "????",
-            "comments": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ",
-            "owner": "125546464"
-          },
-          {
-            "category": "in good hands",
-            "title": "Nice small dog",
-            "petName": "Сookie",
-            "birth": "20.09.2021",
-            "breed": "Pomeranian",
-            "petSex": "female",
-            "location": "Kyiv",
-            "price": 80,
-            "petImage": "????",
-            "comments": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ",
-            "owner": "65897777"
-          }
-        ]
+        }
       },
       "NoticeRequest": {
         "type": "object",
@@ -627,7 +661,7 @@
           "birth": {
             "type": "string",
             "description": "Date of birth",
-            "example": "20.09.2020"
+            "example": "09.09.2020"
           },
           "breed": {
             "type": "string",
@@ -657,98 +691,103 @@
           "comments": {
             "type": "string",
             "description": "Сomments about pet",
-            "example": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. "
-          },
-          "owner": {
-            "type": "string",
-            "description": "User's id owner of notice",
-            "example": "125546464"
+            "example": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy. "
           }
-        },
-        "example": {
-          "category": "sell",
-          "title": "Cute dog",
-          "petName": "Luck",
-          "birth": "20.09.2020",
-          "breed": "Pomeranian",
-          "petSex": "male",
-          "location": "Lviv",
-          "price": 50,
-          "petImage": "",
-          "comments": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. "
         }
       },
       "NoticeById": {
         "type": "object",
         "properties": {
-          "category": {
+          "status": {
+            "type": "string",
+            "description": "Status of the operation",
+            "example": "success"
+          },
+          "code": {
+            "type": "number",
+            "description": "Code of the operation",
+            "example": 200
+          },
+          "notice": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "type": "string",
+                "description": "Category of notice",
+                "example": "sell"
+              },
+              "title": {
+                "type": "string",
+                "description": "Title of notice",
+                "example": "Cute dog"
+              },
+              "petName": {
+                "type": "string",
+                "description": "Name of pet",
+                "example": "Luck"
+              },
+              "birth": {
+                "type": "string",
+                "description": "Date of birth",
+                "example": "09.09.2020"
+              },
+              "breed": {
+                "type": "string",
+                "description": "Breed of pet",
+                "example": "Pomeranian"
+              },
+              "petSex": {
+                "type": "string",
+                "description": "Sex of pet",
+                "example": "male"
+              },
+              "location": {
+                "type": "string",
+                "description": "Location of pet",
+                "example": "Lviv"
+              },
+              "price": {
+                "type": "number",
+                "description": "Price of pet",
+                "example": 50
+              },
+              "petImage": {
+                "type": "string",
+                "description": "Image of pet",
+                "example": "https://editor.swagger.io/"
+              },
+              "comments": {
+                "type": "string",
+                "description": "Сomments about pet",
+                "example": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy. "
+              },
+              "owner": {
+                "type": "string",
+                "description": "User's id owner of notice",
+                "example": "125546464"
+              }
+            }
+          }
+        }
+      },
+      "ResponceDeleteNoticeById": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Status of the operation",
+            "example": "success"
+          },
+          "code": {
+            "type": "number",
+            "description": "Code of the operation",
+            "example": 200
+          },
+          "message": {
             "type": "string",
             "description": "Category of notice",
-            "example": "sell"
-          },
-          "title": {
-            "type": "string",
-            "description": "Title of notice",
-            "example": "Cute dog"
-          },
-          "petName": {
-            "type": "string",
-            "description": "Name of pet",
-            "example": "Luck"
-          },
-          "birth": {
-            "type": "string",
-            "description": "Date of birth",
-            "example": "20.09.2020"
-          },
-          "breed": {
-            "type": "string",
-            "description": "Breed of pet",
-            "example": "Pomeranian"
-          },
-          "petSex": {
-            "type": "string",
-            "description": "Sex of pet",
-            "example": "male"
-          },
-          "location": {
-            "type": "string",
-            "description": "Location of pet",
-            "example": "Lviv"
-          },
-          "price": {
-            "type": "number",
-            "description": "Price of pet",
-            "example": 50
-          },
-          "petImage": {
-            "type": "string",
-            "description": "Image of pet",
-            "example": "https://editor.swagger.io/"
-          },
-          "comments": {
-            "type": "string",
-            "description": "Сomments about pet",
-            "example": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. "
-          },
-          "owner": {
-            "type": "string",
-            "description": "User's id owner of notice",
-            "example": "125546464"
+            "example": "Notice was deleted successfully!"
           }
-        },
-        "example": {
-          "category": "sell",
-          "title": "Cute dog",
-          "petName": "Luck",
-          "birth": "20.09.2020",
-          "breed": "Pomeranian",
-          "petSex": "male",
-          "location": "Lviv",
-          "price": 50,
-          "petImage": "",
-          "comments": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ",
-          "owner": "125546464"
         }
       },
       "Friend": {
