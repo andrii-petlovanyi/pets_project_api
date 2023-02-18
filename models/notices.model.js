@@ -19,7 +19,7 @@ const Notice = new Schema(
       required: [true, 'Set pet name'],
     },
     birth: {
-      type: Date,
+      type: String,
     },
     breed: {
       type: String,

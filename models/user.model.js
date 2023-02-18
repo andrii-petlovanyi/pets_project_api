@@ -23,7 +23,7 @@ const userSchema = new Schema(
       default: '',
     },
     birthday: {
-      type: Date,
+      type: String,
       default: '01.01.1977',
     },
     phone: {
