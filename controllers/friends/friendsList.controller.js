@@ -1,3 +1,4 @@
+const { wrapCtrl } = require('../../middlewares/wrapCtrl');
 const { getPartners } = require('../../services/friends/friendsList.service');
 
 const listPartnersCtrl = async (_, res) => {
@@ -13,5 +14,5 @@ const listPartnersCtrl = async (_, res) => {
 };
 
 module.exports = {
-  listPartnersCtrl,
+  listPartnersCtrl: wrapCtrl(listPartnersCtrl),
 };

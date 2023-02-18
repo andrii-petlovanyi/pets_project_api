@@ -1,3 +1,4 @@
+const { wrapCtrl } = require('../../middlewares/wrapCtrl');
 const { delMyPet } = require('../../services/users/delMyPet.service');
 
 const delMyPetCtrl = async (req, res) => {
@@ -13,4 +14,4 @@ const delMyPetCtrl = async (req, res) => {
   });
 };
 
-module.exports = { delMyPetCtrl };
+module.exports = { delMyPetCtrl: wrapCtrl(delMyPetCtrl) };

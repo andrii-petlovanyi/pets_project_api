@@ -16,12 +16,4 @@ const idValidation = (req, _, next) => {
   next();
 };
 
-module.exports = idValidation;
-
-//example use
-// router.patch(
-//   '/:userId/note',
-//   idValidation,
-//   reqValidation(changeNoteSchema),
-//   wrapCtrl(changeNoteCtrl),
-// );
+module.exports = { idValidation };

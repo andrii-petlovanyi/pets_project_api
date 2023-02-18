@@ -1,3 +1,4 @@
+const { wrapCtrl } = require('../../middlewares/wrapCtrl');
 const {
   favNoticesList,
 } = require('../../services/notices/getFavorites.service');
@@ -15,4 +16,4 @@ const favNoticesListCtrl = async (req, res) => {
   });
 };
 
-module.exports = { favNoticesListCtrl };
+module.exports = { favNoticesListCtrl: wrapCtrl(favNoticesListCtrl) };

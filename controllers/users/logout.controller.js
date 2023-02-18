@@ -1,3 +1,4 @@
+const { wrapCtrl } = require('../../middlewares/wrapCtrl');
 const { logOut } = require('../../services/users/logout.service');
 
 const logOutCtrl = async (req, res) => {
@@ -8,4 +9,4 @@ const logOutCtrl = async (req, res) => {
   res.status(204).json();
 };
 
-module.exports = { logOutCtrl };
+module.exports = { logOutCtrl: wrapCtrl(logOutCtrl) };

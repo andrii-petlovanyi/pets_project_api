@@ -15,7 +15,7 @@ const login = async ({ email, password }) => {
 
   const updatedUser = await User.findOneAndUpdate(
     user._id,
-    { token, pets: [...petsList] },
+    { accessToken: token, pets: [...petsList] },
     { new: true },
   )
     .select('-password -createdAt -updatedAt')

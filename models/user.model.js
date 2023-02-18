@@ -31,27 +31,16 @@ const userSchema = new Schema(
       unique: true,
       default: '',
     },
-    token: {
+    accessToken: {
+      type: String,
+      default: null,
+    },
+    refreshToken: {
       type: String,
       default: null,
     },
     avatarURL: String,
     pets: [],
-    // pets: [
-    //   {
-    //     name: {
-    //       type: String,
-    //       required: [true, 'Name is required'],
-    //     },
-    //     birth: {
-    //       type: Date,
-    //       default: '00.00.0000',
-    //     },
-    //     avatar: { type: String },
-    //     breed: { type: String, default: '' },
-    //     comments: { type: String, default: '' },
-    //   },
-    // ],
     favorites: [
       {
         type: Schema.Types.ObjectId,
@@ -68,7 +57,7 @@ userSchema.methods.setPassword = function (password) {
 };
 
 userSchema.methods.setToken = function (token) {
-  this.token = token;
+  this.accessToken = token;
 };
 
 userSchema.methods.comparePassword = function (password) {

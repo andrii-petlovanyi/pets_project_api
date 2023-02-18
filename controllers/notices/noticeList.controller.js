@@ -1,3 +1,4 @@
+const { wrapCtrl } = require('../../middlewares/wrapCtrl');
 const { listNotices } = require('../../services/notices/noticeList.service');
 
 async function noticeListCtrl(req, res) {
@@ -13,5 +14,5 @@ async function noticeListCtrl(req, res) {
 }
 
 module.exports = {
-  noticeListCtrl,
+  noticeListCtrl: wrapCtrl(noticeListCtrl),
 };

@@ -1,3 +1,4 @@
+const { wrapCtrl } = require('../../middlewares/wrapCtrl');
 const { deleteNotice } = require('../../services/notices/deleteNotice.service');
 
 const deleteNoticeCtrl = async (req, res) => {
@@ -14,5 +15,5 @@ const deleteNoticeCtrl = async (req, res) => {
 };
 
 module.exports = {
-  deleteNoticeCtrl,
+  deleteNoticeCtrl: wrapCtrl(deleteNoticeCtrl),
 };

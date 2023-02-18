@@ -4,7 +4,7 @@ const { NotAuthorizedError } = require('../../helpers/errors');
 const logOut = async id => {
   const user = await User.findByIdAndUpdate(
     id,
-    { token: null },
+    { accessToken: null },
     { runValidators: true },
   );
 

@@ -1,6 +1,7 @@
+const { wrapCtrl } = require('../../middlewares/wrapCtrl');
 const { updateUser } = require('../../services/users/updateUser.service');
 
-const updateUserInfo = async (req, res) => {
+const updateUserCtrl = async (req, res) => {
   const { _id } = req.user;
   const body = req.body;
   const avatar = req.file;
@@ -15,4 +16,4 @@ const updateUserInfo = async (req, res) => {
   });
 };
 
-module.exports = { updateUserInfo };
+module.exports = { updateUserCtrl: wrapCtrl(updateUserCtrl) };

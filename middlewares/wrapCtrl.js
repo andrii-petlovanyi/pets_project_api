@@ -8,12 +8,5 @@ const wrapCtrl = controller => {
   };
   return func;
 };
-module.exports = { wrapCtrl };
 
-//example use
-// router.patch(
-//   '/:userId/note',
-//   idValidation,
-//   reqValidation(changeNoteSchema),
-//   wrapCtrl(changeNoteCtrl),
-// );
+module.exports = { wrapCtrl };

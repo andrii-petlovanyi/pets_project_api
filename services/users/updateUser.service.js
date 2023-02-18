@@ -3,7 +3,7 @@ const User = require('../../models/user.model');
 const updateUser = async (userId, body, avatar) => {
   const { name, city, birthday, phone } = body;
 
-  const updatedUser = !!file
+  const updatedUser = !!avatar
     ? await User.findByIdAndUpdate(
         { _id: userId },
         { name, city, birthday, phone, avatarURL: avatar.path },

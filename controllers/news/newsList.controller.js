@@ -1,3 +1,4 @@
+const { wrapCtrl } = require('../../middlewares/wrapCtrl');
 const { getNews } = require('../../services/news/newsList.service');
 
 const getNewsCtrl = async (req, res) => {
@@ -9,5 +10,5 @@ const getNewsCtrl = async (req, res) => {
 };
 
 module.exports = {
-  getNewsCtrl,
+  getNewsCtrl: wrapCtrl(getNewsCtrl),
 };

@@ -1,3 +1,4 @@
+const { wrapCtrl } = require('../../middlewares/wrapCtrl');
 const { login } = require('../../services/users/login.service');
 
 const loginCtrl = async (req, res) => {
@@ -13,4 +14,4 @@ const loginCtrl = async (req, res) => {
   });
 };
 
-module.exports = { loginCtrl };
+module.exports = { loginCtrl: wrapCtrl(loginCtrl) };

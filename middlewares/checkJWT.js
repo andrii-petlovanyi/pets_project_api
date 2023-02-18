@@ -16,7 +16,7 @@ const checkJWT = async (req, _, next) => {
     }
     const { id } = jwt.verify(token, JWT_SECRET_KEY);
     const user = await User.findById(id);
-    if (!user || user.token !== token) {
+    if (!user || user.accessToken !== token) {
       throw new NotAuthorizedError('Not authorized');
     }
 
@@ -27,4 +27,4 @@ const checkJWT = async (req, _, next) => {
   }
 };
 
-module.exports = checkJWT;
+module.exports = { checkJWT };

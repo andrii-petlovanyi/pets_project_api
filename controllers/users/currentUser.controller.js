@@ -1,3 +1,4 @@
+const { wrapCtrl } = require('../../middlewares/wrapCtrl');
 const current = require('../../services/users/current.service');
 
 const currentUserCtrl = async (req, res) => {
@@ -19,4 +20,4 @@ const currentUserCtrl = async (req, res) => {
   });
 };
 
-module.exports = currentUserCtrl;
+module.exports = { currentUserCtrl: wrapCtrl(currentUserCtrl) };

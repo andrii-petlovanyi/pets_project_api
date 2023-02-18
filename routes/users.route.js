@@ -1,60 +1,50 @@
 const express = require('express');
 const router = express.Router();
 
-const { wrapCtrl } = require('../middlewares/wrapCtrl');
-const checkJWT = require('../middlewares/checkJWT');
 const {
-  updateUserInfo,
-} = require('../controllers/users/updateUser.controller');
-const reqValidation = require('../middlewares/reqValidation');
-const idValidation = require('../middlewares/idValidation');
+  addNoticeToFavCtrl,
+  favNoticesListCtrl,
+  deleteNoticeFromFavCtrl,
+} = require('../controllers/notices');
+const {
+  registerCtrl,
+  loginCtrl,
+  currentUserCtrl,
+  logOutCtrl,
+  updateUserCtrl,
+  delMyPetCtrl,
+} = require('../controllers/users');
+const { addMyPetCtrl } = require('../controllers/users/addMyPet.controller');
+const {
+  checkJWT,
+  idValidation,
+  reqValidation,
+  uploadPhoto,
+} = require('../middlewares');
+
 const {
   loginSchema,
   registerSchema,
   updateUserSchema,
 } = require('../validations/user.validation');
-const { logOutCtrl } = require('../controllers/users/logout.controller');
-const registerCtrl = require('../controllers/users/register.controller');
-const { loginCtrl } = require('../controllers/users/login.controller');
-const currentUserCtrl = require('../controllers/users/currentUser.controller');
-const {
-  favNoticesListCtrl,
-} = require('../controllers/notices/favNoticesList.controller');
-const {
-  addNoticeToFavCtrl,
-} = require('../controllers/notices/addNoticeToFav.controller');
-const {
-  deleteNoticeFromFavCtrl,
-} = require('../controllers/notices/delNoticeFromFav.controller');
-const { addMyPetCtrl } = require('../controllers/users/addMyPet.controller');
-const { delMyPetCtrl } = require('../controllers/users/delMyPet.controller');
-const uploadPhoto = require('../middlewares/uploadPhoto');
 
-router.post('/register', reqValidation(registerSchema), wrapCtrl(registerCtrl));
-router.post('/login', reqValidation(loginSchema), wrapCtrl(loginCtrl));
+router.post('/register', reqValidation(registerSchema), registerCtrl);
+router.post('/login', reqValidation(loginSchema), loginCtrl);
 
 router.use(checkJWT);
-router.get('/current', wrapCtrl(currentUserCtrl));
-router.get('/logout', wrapCtrl(logOutCtrl));
-router.patch(
-  '/favorites/:noticeId',
-  idValidation,
-  wrapCtrl(addNoticeToFavCtrl),
-);
+router.get('/current', currentUserCtrl);
+router.get('/logout', logOutCtrl);
+router.patch('/favorites/:noticeId', idValidation, addNoticeToFavCtrl);
 router.patch(
   '/',
   uploadPhoto.single('image'),
   reqValidation(updateUserSchema),
-  wrapCtrl(updateUserInfo),
+  updateUserCtrl,
 );
-router.get('/favorites', wrapCtrl(favNoticesListCtrl));
-router.delete(
-  '/favorites/:noticeId',
-  idValidation,
-  wrapCtrl(deleteNoticeFromFavCtrl),
-);
+router.get('/favorites', favNoticesListCtrl);
+router.delete('/favorites/:noticeId', idValidation, deleteNoticeFromFavCtrl);
 
-router.post('/pets', uploadPhoto.single('image'), wrapCtrl(addMyPetCtrl));
-router.delete('/pets/:petId', idValidation, wrapCtrl(delMyPetCtrl));
+router.post('/pets', uploadPhoto.single('image'), addMyPetCtrl);
+router.delete('/pets/:petId', idValidation, delMyPetCtrl);
 
 module.exports = router;

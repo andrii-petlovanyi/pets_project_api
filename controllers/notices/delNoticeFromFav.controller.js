@@ -1,3 +1,4 @@
+const { wrapCtrl } = require('../../middlewares/wrapCtrl');
 const {
   deleteNoticeFromFav,
 } = require('../../services/notices/deleteNoticeFromFav.service');
@@ -14,4 +15,4 @@ const deleteNoticeFromFavCtrl = async (req, res) => {
     code: 200,
   });
 };
-module.exports = { deleteNoticeFromFavCtrl };
+module.exports = { deleteNoticeFromFavCtrl: wrapCtrl(deleteNoticeFromFavCtrl) };
