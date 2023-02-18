@@ -3,8 +3,9 @@ const { addNotice } = require('../../services/notices/addNotice.service');
 const addNoticeCtrl = async (req, res) => {
   const { _id: id } = req.user;
   const body = req.body;
+  const avatar = req.file;
 
-  const notice = await addNotice(id, body);
+  const notice = await addNotice(id, body, avatar);
 
   res.status(201).json({
     status: 'success',

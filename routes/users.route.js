@@ -28,6 +28,7 @@ const {
 } = require('../controllers/notices/delNoticeFromFav.controller');
 const { addMyPetCtrl } = require('../controllers/users/addMyPet.controller');
 const { delMyPetCtrl } = require('../controllers/users/delMyPet.controller');
+const uploadPhoto = require('../middlewares/uploadPhoto');
 
 router.post('/register', reqValidation(registerSchema), wrapCtrl(registerCtrl));
 router.post('/login', reqValidation(loginSchema), wrapCtrl(loginCtrl));
@@ -40,7 +41,12 @@ router.patch(
   idValidation,
   wrapCtrl(addNoticeToFavCtrl),
 );
-router.patch('/', reqValidation(updateUserSchema), wrapCtrl(updateUserInfo));
+router.patch(
+  '/',
+  uploadPhoto.single('image'),
+  reqValidation(updateUserSchema),
+  wrapCtrl(updateUserInfo),
+);
 router.get('/favorites', wrapCtrl(favNoticesListCtrl));
 router.delete(
   '/favorites/:noticeId',
@@ -48,7 +54,7 @@ router.delete(
   wrapCtrl(deleteNoticeFromFavCtrl),
 );
 
-router.post('/pets', wrapCtrl(addMyPetCtrl));
+router.post('/pets', uploadPhoto.single('image'), wrapCtrl(addMyPetCtrl));
 router.delete('/pets/:petId', idValidation, wrapCtrl(delMyPetCtrl));
 
 module.exports = router;

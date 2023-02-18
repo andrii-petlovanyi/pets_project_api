@@ -20,13 +20,19 @@ const {
 const {
   userNoticeListCtrl,
 } = require('../controllers/notices/userNotice.controller');
+const uploadPhoto = require('../middlewares/uploadPhoto');
 
 router.get('/', wrapCtrl(noticeListCtrl));
 router.get('/owner', checkJWT, wrapCtrl(userNoticeListCtrl));
 router.get('/:noticeId', idValidation, wrapCtrl(noticeByIdCtrl));
 
 router.use(checkJWT);
-router.post('/', reqValidation(noticeAddSchema), wrapCtrl(addNoticeCtrl));
+router.post(
+  '/',
+  uploadPhoto.single('image'),
+  reqValidation(noticeAddSchema),
+  wrapCtrl(addNoticeCtrl),
+);
 router.delete('/:noticeId', idValidation, wrapCtrl(deleteNoticeCtrl));
 
 module.exports = router;

@@ -4,6 +4,7 @@ const categoryList = ['lost-found', 'for-free', 'sell'];
 const sexList = ['male', 'female'];
 const birthDay =
   /^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/;
+const location = /^\w+,\s*\w+$/;
 
 const noticeAddSchema = Joi.object({
   category: Joi.string()
@@ -37,9 +38,10 @@ const noticeAddSchema = Joi.object({
       'any.required': 'Pet sex is required',
       'any.only': `Category must be one of [${sexList.join(', ')}]`,
     }),
-  location: Joi.string().min(2).max(32).required().messages({
+  location: Joi.string().min(2).max(32).required().pattern(location).messages({
     'any.required': 'Location is required',
-     'string.min': 'Location must be at least {{#limit}} characters long',
+    'string.pattern.base': 'Location is must be in format: City, Region',
+    'string.min': 'Location must be at least {{#limit}} characters long',
     'string.max': 'Location cannot be longer than {{#limit}} characters',
   }),
   price: Joi.number(),
