@@ -225,16 +225,14 @@
     },
     "/news": {
       "get": {
-        "summary": "Метод получения новостей",
-        "description": "Метод предназначен для получения списка всех новостей, сохраненных в БД или поиска нвоовстей по ключевому слову.",
-        "operationId": "getNews",
+        "summary": "Get all news",
         "tags": ["News"],
         "parameters": [
           {
             "name": "search",
             "required": false,
             "in": "query",
-            "description": "Название статьи",
+            "description": "Article title",
             "schema": {
               "type": "string"
             }
@@ -242,7 +240,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Список новостей",
+            "description": "News list",
             "content": {
               "application/json": {
                 "schema": {
@@ -252,7 +250,7 @@
             }
           },
           "default": {
-            "description": "Любая неожиданная ошибка",
+            "description": "Internal Server Error",
             "content": {
               "application/json": {
                 "schema": {
@@ -607,8 +605,73 @@
           }
         }
       }
+    },
+    "/users/favorites/{petId}": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "Add pets in favorites",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "description": "Pet id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/addFavoritesPets"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["User"],
+        "summary": "Delete pets in favorites",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "description": "Pet id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/addFavoritesPets"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
+
   "components": {
     "schemas": {
       "FavoritesPets": {
@@ -697,6 +760,23 @@
                 }
               }
             }
+          }
+        }
+      },
+      "addFavoritesPets": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success,"
+          },
+          "code": {
+            "type": "integer",
+            "example": 200
+          },
+          "massage": {
+            "type": "string",
+            "example": "Notice with id 63f0d513736f28f300309d0b added successfully to favorites lists!200"
           }
         }
       },
@@ -1033,22 +1113,18 @@
                   "example": "63ed0c6c5b30d43d3cc884bf"
                 },
                 "title": {
-                  "description": "Заголовок новости",
                   "type": "string",
                   "example": "Обережно, кліщі!"
                 },
                 "url": {
-                  "description": "Link",
                   "type": "string",
                   "example": "https://www.kmlvm.com.ua"
                 },
                 "description": {
-                  "description": "Описание",
                   "type": "string",
                   "example": "Травневі прогулянки з улюбленцем не лише приємні..."
                 },
                 "date": {
-                  "description": "Дата и время новости в каталоге",
                   "type": "string",
                   "example": "2022-08-12"
                 }
