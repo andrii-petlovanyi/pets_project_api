@@ -23,11 +23,11 @@ const Notice = new Schema(
     },
     breed: {
       type: String,
+      required: [true, 'Set breed']
     },
     petSex: {
       type: String,
       enum: ['male', 'female'],
-
       required: [true, 'Set pet sex'],
     },
     location: {
