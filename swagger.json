@@ -30,7 +30,9 @@
   "paths": {
     "/notices": {
       "get": {
-        "tags": ["Notices"],
+        "tags": [
+          "Notices"
+        ],
         "summary": "Find all notices",
         "parameters": [
           {
@@ -51,7 +53,11 @@
             "schema": {
               "type": "string",
               "default": "sell",
-              "enum": ["sell", "lost/found", "in good hands"]
+              "enum": [
+                "sell",
+                "lost/found",
+                "in good hands"
+              ]
             }
           },
           {
@@ -99,7 +105,9 @@
         }
       },
       "post": {
-        "tags": ["Notices"],
+        "tags": [
+          "Notices"
+        ],
         "summary": "Add a new notice",
         "requestBody": {
           "description": "Registration's object",
@@ -144,7 +152,9 @@
     },
     "/notices/{noticeId}": {
       "get": {
-        "tags": ["Notices"],
+        "tags": [
+          "Notices"
+        ],
         "summary": "Find notice by Id",
         "parameters": [
           {
@@ -179,7 +189,9 @@
         }
       },
       "delete": {
-        "tags": ["Notices"],
+        "tags": [
+          "Notices"
+        ],
         "summary": "Delete notice by Id",
         "security": [
           {
@@ -226,7 +238,9 @@
     "/news": {
       "get": {
         "summary": "Get all news",
-        "tags": ["News"],
+        "tags": [
+          "News"
+        ],
         "parameters": [
           {
             "name": "search",
@@ -265,7 +279,9 @@
     "/friends": {
       "get": {
         "summary": "Get list partners method",
-        "tags": ["friends"],
+        "tags": [
+          "friends"
+        ],
         "operationId": "getFriends",
         "responses": {
           "200": {
@@ -293,7 +309,9 @@
     },
     "/users/register": {
       "post": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "summary": "User registration",
         "requestBody": {
           "description": "Registration's object",
@@ -321,7 +339,9 @@
     },
     "/users/login": {
       "post": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "summary": "User login",
         "requestBody": {
           "description": "Registration's object",
@@ -349,7 +369,9 @@
     },
     "/users/current": {
       "get": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "summary": "Get current user",
         "security": [
           {
@@ -382,7 +404,9 @@
     },
     "/users": {
       "patch": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "summary": "Update current user",
         "security": [
           {
@@ -429,7 +453,9 @@
     },
     "/users/logout": {
       "get": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "summary": "User logout",
         "security": [
           {
@@ -455,7 +481,9 @@
     },
     "/users/pets": {
       "post": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "summary": "Add my pets",
         "security": [
           {
@@ -506,7 +534,9 @@
     },
     "/users/pets/{petId}": {
       "delete": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "summary": "remove pet by id",
         "security": [
           {
@@ -558,7 +588,9 @@
     },
     "/users/favorites": {
       "get": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "summary": "Get all favorite pets",
         "security": [
           {
@@ -608,7 +640,9 @@
     },
     "/users/favorites/{petId}": {
       "patch": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "summary": "Add pets in favorites",
         "security": [
           {
@@ -639,7 +673,9 @@
         }
       },
       "delete": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "summary": "Delete pets in favorites",
         "security": [
           {
@@ -671,7 +707,6 @@
       }
     }
   },
-
   "components": {
     "schemas": {
       "FavoritesPets": {
@@ -876,7 +911,13 @@
       },
       "RegistrationRequest": {
         "type": "object",
-        "required": ["email", "password", "name", "phone", "city"],
+        "required": [
+          "email",
+          "password",
+          "name",
+          "phone",
+          "city"
+        ],
         "properties": {
           "email": {
             "type": "string",
@@ -975,7 +1016,10 @@
       },
       "LoginRequest": {
         "type": "object",
-        "required": ["email", "password"],
+        "required": [
+          "email",
+          "password"
+        ],
         "properties": {
           "email": {
             "type": "string",
@@ -1030,6 +1074,13 @@
       },
       "AddMyPetsRequest": {
         "type": "object",
+        "required": [
+          "name",
+          "birth",
+          "breed",
+          "avatarURL",
+          "comment"
+        ],
         "properties": {
           "name": {
             "type": "string",
@@ -1045,12 +1096,10 @@
           },
           "avatarURL": {
             "type": "string",
-            "default": "",
-            "example": null
+            "example": "https://static.apostrophe.ua/uploads/image/40c8096665a10a5adba37837593a2f49.jpg"
           },
           "comment": {
             "type": "string",
-            "default": "",
             "example": "Small tan and white terriers that technically belong to other breeds are sometimes known erroneously as \"Jack Russells\"."
           }
         }
@@ -1198,7 +1247,12 @@
       },
       "NoticeRequest": {
         "type": "object",
-        "required": ["title", "petSex", "location", "price"],
+        "required": [
+          "title",
+          "petSex",
+          "location",
+          "price"
+        ],
         "properties": {
           "category": {
             "type": "string",
@@ -1349,7 +1403,9 @@
       },
       "Friend": {
         "type": "object",
-        "required": ["title"],
+        "required": [
+          "title"
+        ],
         "properties": {
           "friend_id": {
             "type": "string",
@@ -1413,7 +1469,10 @@
       },
       "Error": {
         "type": "object",
-        "required": ["code", "message"],
+        "required": [
+          "code",
+          "message"
+        ],
         "properties": {
           "code": {
             "type": "integer",
