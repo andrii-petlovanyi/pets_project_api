@@ -26,6 +26,7 @@ const {
   loginSchema,
   registerSchema,
   updateUserSchema,
+  addPetSchema,
 } = require('../validations/user.validation');
 
 router.post('/register', reqValidation(registerSchema), registerCtrl);
@@ -44,7 +45,12 @@ router.patch(
 router.get('/favorites', favNoticesListCtrl);
 router.delete('/favorites/:noticeId', idValidation, deleteNoticeFromFavCtrl);
 
-router.post('/pets', uploadPhoto.single('image'), addMyPetCtrl);
+router.post(
+  '/pets',
+  uploadPhoto.single('image'),
+  reqValidation(addPetSchema),
+  addMyPetCtrl,
+);
 router.delete('/pets/:petId', idValidation, delMyPetCtrl);
 
 module.exports = router;

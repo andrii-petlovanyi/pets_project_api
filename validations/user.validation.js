@@ -74,11 +74,33 @@ const registerSchema = Joi.object({
     'string.min': `Phone number length must be at least {{#limit}} characters long`,
     'string.max': `Phone number length must be at most {{#limit}} characters long`,
   }),
-  city: Joi.string().alphanum().min(3).max(20).required().messages({
-    'string.alphanum': 'City must only contain alpha-numeric characters',
+  city: Joi.string().min(3).max(20).required().messages({
     'any.required': 'City is required',
     'string.min': `City length must be at least {{#limit}} characters long`,
     'string.max': `City length must be at most {{#limit}} characters long`,
+  }),
+});
+
+const addPetSchema = Joi.object({
+  name: Joi.string().min(2).max(32).alphanum().required().messages({
+    'any.required': 'Name is required',
+    'string.alphanum': 'Pet name must only contain alpha-numeric characters',
+    'string.min': `Name length must be at least {{#limit}} characters long`,
+    'string.max': `Name length must be at most {{#limit}} characters long`,
+  }),
+  birth: Joi.string().pattern(birthDay).required().messages({
+    'any.required': 'Birthday is required',
+    'string.pattern.base': 'Birthday date must be in format 01.12.1970',
+  }),
+  breed: Joi.string().min(2).max(32).required().messages({
+    'any.required': 'Breed is required',
+    'string.min': `Breed length must be at least {{#limit}} characters long`,
+    'string.max': `Breed length must be at most {{#limit}} characters long`,
+  }),
+  comment: Joi.string().min(10).max(320).required().messages({
+    'any.required': 'City is required',
+    'string.min': `Comment length must be at least {{#limit}} characters long`,
+    'string.max': `Comment length must be at most {{#limit}} characters long`,
   }),
 });
 
@@ -86,4 +108,5 @@ module.exports = {
   updateUserSchema,
   loginSchema,
   registerSchema,
+  addPetSchema,
 };
