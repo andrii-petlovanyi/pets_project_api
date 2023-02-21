@@ -17,9 +17,10 @@ const updateUserSchema = Joi.object({
     'string.max': `Email length must be at most {{#limit}} characters long`,
     'string.pattern.base': 'Email is must be in format email@domain.com',
   }),
-  birthday: Joi.string().pattern(birthDay).optional().messages({
-    'string.pattern.base': 'Birthday date must be in format 01.12.1970',
-  }),
+  // birthday: Joi.string().pattern(birthDay).optional().messages({
+  //   'string.pattern.base': 'Birthday date must be in format 01.12.1970',
+  // }),
+  birthday: Joi.date().optional(),
   phone: Joi.string().min(9).max(15).optional().messages({
     'string.min': `Phone number length must be at least {{#limit}} characters long`,
     'string.max': `Phone number length must be at most {{#limit}} characters long`,
