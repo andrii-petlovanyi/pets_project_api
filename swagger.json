@@ -28,269 +28,6 @@
     }
   ],
   "paths": {
-    "/notices": {
-      "get": {
-        "tags": ["Notices"],
-        "summary": "Find all notices",
-        "parameters": [
-          {
-            "name": "search",
-            "required": false,
-            "in": "query",
-            "description": "Finds notice by keyword",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "category",
-            "in": "query",
-            "description": "Category values that need to be considered for filter",
-            "required": false,
-            "explode": true,
-            "schema": {
-              "type": "string",
-              "default": "sell",
-              "enum": ["sell", "lost/found", "in good hands"]
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "description": "Page to display",
-            "required": false,
-            "explode": true,
-            "schema": {
-              "type": "string",
-              "default": 1
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "Limitation on the number of notes",
-            "required": false,
-            "explode": true,
-            "schema": {
-              "type": "string",
-              "default": 10
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/NoticesResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request",
-            "content": {}
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {}
-          }
-        }
-      },
-      "post": {
-        "tags": ["Notices"],
-        "summary": "Add a new notice",
-        "requestBody": {
-          "description": "Registration's object",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NoticeRequest"
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "Bearer": []
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Notice added successfully!",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/NoticeById"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request",
-            "content": {}
-          },
-          "401": {
-            "description": "Bad request",
-            "content": {}
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {}
-          }
-        }
-      }
-    },
-    "/notices/{noticeId}": {
-      "get": {
-        "tags": ["Notices"],
-        "summary": "Find notice by Id",
-        "parameters": [
-          {
-            "name": "noticeId",
-            "in": "path",
-            "description": "ID of notice to return",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/NoticeById"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request",
-            "content": {}
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {}
-          }
-        }
-      },
-      "delete": {
-        "tags": ["Notices"],
-        "summary": "Delete notice by Id",
-        "security": [
-          {
-            "Bearer": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "noticeId",
-            "in": "path",
-            "description": "Delete notice from base",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponceDeleteNoticeById"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request",
-            "content": {}
-          },
-          "401": {
-            "description": "Bad request",
-            "content": {}
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {}
-          }
-        }
-      }
-    },
-    "/news": {
-      "get": {
-        "summary": "Get all news",
-        "tags": ["News"],
-        "parameters": [
-          {
-            "name": "search",
-            "required": false,
-            "in": "query",
-            "description": "Article title",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "News list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/News"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/friends": {
-      "get": {
-        "summary": "Get list partners method",
-        "tags": ["Friends"],
-        "operationId": "getFriends",
-        "responses": {
-          "200": {
-            "description": "Success request with list partners",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Friends"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "Any unexpecting error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/users/register": {
       "post": {
         "tags": ["User"],
@@ -766,6 +503,269 @@
           }
         }
       }
+    },
+    "/notices": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Find all notices",
+        "parameters": [
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Finds notice by keyword",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "Category values that need to be considered for filter",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "default": "sell",
+              "enum": ["sell", "lost/found", "in good hands"]
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page to display",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "default": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limitation on the number of notes",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": ["Notices"],
+        "summary": "Add a new notice",
+        "requestBody": {
+          "description": "Registration's object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NoticeRequest"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Notice added successfully!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticeById"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "401": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/notices/{noticeId}": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Find notice by Id",
+        "parameters": [
+          {
+            "name": "noticeId",
+            "in": "path",
+            "description": "ID of notice to return",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticeById"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Notices"],
+        "summary": "Delete notice by Id",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "noticeId",
+            "in": "path",
+            "description": "Delete notice from base",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponceDeleteNoticeById"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "401": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/news": {
+      "get": {
+        "summary": "Get all news",
+        "tags": ["News"],
+        "parameters": [
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Article title",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "News list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/News"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/friends": {
+      "get": {
+        "summary": "Get list partners method",
+        "tags": ["Friends"],
+        "operationId": "getFriends",
+        "responses": {
+          "200": {
+            "description": "Success request with list partners",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Friends"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Any unexpecting error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -788,7 +788,7 @@
           },
           "phone": {
             "type": "string",
-            "example": 3801112283
+            "example": "+3801112283"
           },
           "city": {
             "type": "string",
@@ -824,7 +824,7 @@
               },
               "phone": {
                 "type": "string",
-                "example": 3801112283
+                "example": "+3801112283"
               },
               "city": {
                 "type": "string",
@@ -848,7 +848,8 @@
                 "type": "string"
               },
               "birthday": {
-                "type": "string"
+                "type": "string",
+                "example": "00.00.0000"
               },
               "pets": {
                 "type": "array",
@@ -906,7 +907,7 @@
               },
               "phone": {
                 "type": "string",
-                "example": 380679876543
+                "example": "+380679876543"
               },
               "accessToken": {
                 "type": "string",
@@ -925,7 +926,7 @@
               },
               "birthday": {
                 "type": "string",
-                "example": "20.02.2002"
+                "example": "00.00.0000"
               },
               "pets": {
                 "type": "array",
@@ -955,11 +956,11 @@
           },
           "phone": {
             "type": "string",
-            "example": 380679876543
+            "example": "+380679876543"
           },
           "birthday": {
             "type": "string",
-            "example": "20.02.2002"
+            "example": "10.02.2002"
           }
         }
       },
@@ -1001,7 +1002,7 @@
               },
               "phone": {
                 "type": "string",
-                "example": 380679876543
+                "example": "+380679876543"
               },
               "accessToken": {
                 "type": "string",
@@ -1020,7 +1021,7 @@
               },
               "birthday": {
                 "type": "string",
-                "example": "20.02.2002"
+                "example": "10.02.2002"
               },
               "pets": {
                 "type": "array",
@@ -1033,6 +1034,111 @@
           }
         }
       },
+      "AddMyPetsRequest": {
+        "type": "object",
+        "required": ["name", "birth", "breed", "avatarURL", "comment"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Patron"
+          },
+          "birth": {
+            "type": "string",
+            "example": "01.08.2021"
+          },
+          "breed": {
+            "type": "string",
+            "example": "Jack Russell Terrier"
+          },
+          "avatarURL": {
+            "type": "string",
+            "example": "https://static.apostrophe.ua/uploads/image/40c8096665a10a5adba37837593a2f49.jpg"
+          },
+          "comment": {
+            "type": "string",
+            "example": "Small tan and white terriers that technically belong to other breeds are sometimes known erroneously as \"Jack Russells\"."
+          }
+        }
+      },
+      "AddMyPetResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "code": {
+            "type": "integer",
+            "example": 201
+          },
+          "massage": {
+            "type": "integer",
+            "example": "Pet added successfully!"
+          },
+          "pet": {
+            "$ref": "#/components/schemas/Pet"
+          }
+        }
+      },
+      "RemoveMyPetResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "code": {
+            "type": "integer",
+            "example": 200
+          },
+          "massage": {
+            "type": "integer",
+            "example": "Pet removed successfully!"
+          }
+        }
+      },
+      "Pet": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Patron"
+          },
+          "birth": {
+            "type": "string",
+            "example": 2020
+          },
+          "breed": {
+            "type": "string",
+            "example": "Jack Russell Terrier"
+          },
+          "avatarURL": {
+            "type": "string",
+            "example": null
+          },
+          "comment": {
+            "type": "string",
+            "example": "Small tan and white terriers that technically belong to other breeds are sometimes known erroneously as \\\"Jack Russells\\\"."
+          },
+          "owner": {
+            "type": "string",
+            "example": "63ef81c5986c1693cca9d289"
+          },
+          "_id": {
+            "type": "string",
+            "example": "63f0b3b2b06dba672e91e3b6"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2023-02-18T11:17:06.974Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2023-02-18T11:17:06.974Z"
+          }
+        }
+      },
+
       "FavoritesPets": {
         "type": "object",
         "properties": {
@@ -1140,110 +1246,6 @@
         }
       },
 
-      "Pet": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "example": "Patron"
-          },
-          "birth": {
-            "type": "string",
-            "example": 2020
-          },
-          "breed": {
-            "type": "string",
-            "example": "Jack Russell Terrier"
-          },
-          "avatarURL": {
-            "type": "string",
-            "example": null
-          },
-          "comment": {
-            "type": "string",
-            "example": "Small tan and white terriers that technically belong to other breeds are sometimes known erroneously as \\\"Jack Russells\\\"."
-          },
-          "owner": {
-            "type": "string",
-            "example": "63ef81c5986c1693cca9d289"
-          },
-          "_id": {
-            "type": "string",
-            "example": "63f0b3b2b06dba672e91e3b6"
-          },
-          "createdAt": {
-            "type": "string",
-            "example": "2023-02-18T11:17:06.974Z"
-          },
-          "updatedAt": {
-            "type": "string",
-            "example": "2023-02-18T11:17:06.974Z"
-          }
-        }
-      },
-      "AddMyPetsRequest": {
-        "type": "object",
-        "required": ["name", "birth", "breed", "avatarURL", "comment"],
-        "properties": {
-          "name": {
-            "type": "string",
-            "example": "Patron"
-          },
-          "birth": {
-            "type": "string",
-            "example": 2020
-          },
-          "breed": {
-            "type": "string",
-            "example": "Jack Russell Terrier"
-          },
-          "avatarURL": {
-            "type": "string",
-            "example": "https://static.apostrophe.ua/uploads/image/40c8096665a10a5adba37837593a2f49.jpg"
-          },
-          "comment": {
-            "type": "string",
-            "example": "Small tan and white terriers that technically belong to other breeds are sometimes known erroneously as \"Jack Russells\"."
-          }
-        }
-      },
-      "AddMyPetResponse": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "example": "success"
-          },
-          "code": {
-            "type": "integer",
-            "example": 201
-          },
-          "massage": {
-            "type": "integer",
-            "example": "Pet added successfully!"
-          },
-          "pet": {
-            "$ref": "#/components/schemas/Pet"
-          }
-        }
-      },
-      "RemoveMyPetResponse": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "example": "success"
-          },
-          "code": {
-            "type": "integer",
-            "example": 200
-          },
-          "massage": {
-            "type": "integer",
-            "example": "Pet removed successfully!"
-          }
-        }
-      },
       "News": {
         "type": "object",
         "properties": {
