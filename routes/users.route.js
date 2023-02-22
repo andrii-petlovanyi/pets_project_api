@@ -47,7 +47,7 @@ router.delete('/favorites/:noticeId', idValidation, deleteNoticeFromFavCtrl);
 
 router.post(
   '/pets',
-  uploadPhoto.single('image'),
+  uploadPhoto.single('avatarURL'),
   reqValidation(addPetSchema),
   addMyPetCtrl,
 );
