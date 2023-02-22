@@ -2,7 +2,7 @@ const Joi = require('joi');
 
 const passRegexp = /^(?=.{7,32}$)([0-9A-Za-z])*$/;
 const emailRegexp =
-  /^(?=.{10,63}$)(([0-9A-Za-z]{1}[-0-9A-z\.]{1,}[0-9A-Za-z]{1})@([-A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$/;
+  /^[\S]{1}[\S@.]*[a-zA-Z0-9]+@[^\W_]{2,}[^\W_]*(\.[^\W_]{2,})+$/;
 const birthDay =
   /^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/;
 
@@ -52,7 +52,7 @@ const registerSchema = Joi.object({
     'string.min': `Name length must be at least {{#limit}} characters long`,
     'string.max': `Name length must be at most {{#limit}} characters long`,
   }),
-  email: Joi.string().pattern(emailRegexp).min(7).max(63).required().messages({
+  email: Joi.string().min(6).max(63).required().pattern(emailRegexp).messages({
     'any.required': 'Email is required',
     'string.min': `Email length must be at least {{#limit}} characters long`,
     'string.max': `Email length must be at most {{#limit}} characters long`,
