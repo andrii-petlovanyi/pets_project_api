@@ -4,7 +4,7 @@ const favNoticesList = async (_id, page, limit, search) => {
   const notices = search
     ? await User.findOne({ _id }, 'favorites').populate({
         path: 'favorites',
-        match: { $text: { $search: search } },
+        match: { $text: { $search: search, $options: '/i' } },
         select: '-updatedAt -__v',
         options: { limit: limit, skip: (page - 1) * limit },
       })
