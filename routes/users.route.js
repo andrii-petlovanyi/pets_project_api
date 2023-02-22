@@ -38,7 +38,7 @@ router.get('/logout', logOutCtrl);
 router.patch('/favorites/:noticeId', idValidation, addNoticeToFavCtrl);
 router.patch(
   '/',
-  uploadPhoto.single('image'),
+  uploadPhoto.single('avatarURL'),
   reqValidation(updateUserSchema),
   updateUserCtrl,
 );
