@@ -235,7 +235,7 @@
         "requestBody": {
           "description": "Updated object",
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateUserRequest"
               }
@@ -476,11 +476,23 @@
           },
           "400": {
             "description": "Bad request",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error",
-            "content": {}
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
           }
         }
       },
@@ -490,7 +502,7 @@
         "requestBody": {
           "description": "Registration's object",
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "$ref": "#/components/schemas/NoticeRequest"
               }
@@ -508,22 +520,40 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NoticeById"
+                  "$ref": "#/components/schemas/NoticesResponse"
                 }
               }
             }
           },
           "400": {
             "description": "Bad request",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
           },
           "401": {
-            "description": "Bad request",
-            "content": {}
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error",
-            "content": {}
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
           }
         }
       }
@@ -549,18 +579,30 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NoticeById"
+                  "$ref": "#/components/schemas/NoticesResponse"
                 }
               }
             }
           },
           "400": {
             "description": "Bad request",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error",
-            "content": {}
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
           }
         }
       },
@@ -589,22 +631,40 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResponceDeleteNoticeById"
+                  "$ref": "#/components/schemas/ResponseDeleteNoticeById"
                 }
               }
             }
           },
           "400": {
             "description": "Bad request",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
           },
           "401": {
-            "description": "Bad request",
-            "content": {}
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error",
-            "content": {}
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
           }
         }
       }
@@ -655,6 +715,36 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
           }
         }
       }
@@ -688,6 +778,36 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
           }
         }
       },
@@ -715,7 +835,37 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/addFavoritesPets"
+                  "$ref": "#/components/schemas/removeFavoritesPets"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
                 }
               }
             }
@@ -750,12 +900,22 @@
               }
             }
           },
-          "default": {
-            "description": "Internal Server Error",
+          "400": {
+            "description": "Bad request",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
                 }
               }
             }
@@ -779,12 +939,12 @@
               }
             }
           },
-          "default": {
-            "description": "Any unexpecting error",
+          "500": {
+            "description": "Internal server error",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/InternalServerError"
                 }
               }
             }
@@ -986,6 +1146,10 @@
           "birthday": {
             "type": "string",
             "example": "10.02.2002"
+          },
+          "avatarURL": {
+            "type": "string",
+            "format": "binary"
           }
         }
       },
@@ -1036,6 +1200,10 @@
               "refreshToken": {
                 "type": "boolean",
                 "example": null
+              },
+              "avatarURL": {
+                "type": "string",
+                "example": "https://res.cloudinary.com/djix7ylpo/image/upload/v1677068752/mzy1mdnfdvlnujaysoqj.jpg"
               },
               "favorites": {
                 "type": "array",
@@ -1163,221 +1331,6 @@
           }
         }
       },
-      "NoticeRequest": {
-        "type": "object",
-        "required": ["title", "petSex", "location", "price"],
-        "properties": {
-          "category": {
-            "type": "string",
-            "description": "Category of notice",
-            "example": "sell"
-          },
-          "title": {
-            "type": "string",
-            "description": "Title of notice",
-            "example": "Cute dog"
-          },
-          "petName": {
-            "type": "string",
-            "description": "Name of pet",
-            "example": "Luck"
-          },
-          "birth": {
-            "type": "string",
-            "description": "Date of birth",
-            "example": "09.09.2020"
-          },
-          "breed": {
-            "type": "string",
-            "description": "Breed of pet",
-            "example": "Pomeranian"
-          },
-          "petSex": {
-            "type": "string",
-            "description": "Sex of pet",
-            "example": "male"
-          },
-          "location": {
-            "type": "string",
-            "description": "Location of pet",
-            "example": "Lviv"
-          },
-          "price": {
-            "type": "number",
-            "description": "Price of pet",
-            "example": 50
-          },
-          "petImage": {
-            "type": "string",
-            "description": "Image of pet",
-            "example": "https://editor.swagger.io/"
-          },
-          "comments": {
-            "type": "string",
-            "description": "Сomments about pet",
-            "example": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy. "
-          }
-        }
-      },
-      "NoticesResponse": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "category": {
-              "type": "string",
-              "description": "Category of notice",
-              "example": "sell"
-            },
-            "title": {
-              "type": "string",
-              "description": "Title of notice",
-              "example": "Cute dog"
-            },
-            "petName": {
-              "type": "string",
-              "description": "Name of pet",
-              "example": "Luck"
-            },
-            "birth": {
-              "type": "string",
-              "description": "Date of birth",
-              "example": "09.09.2020"
-            },
-            "breed": {
-              "type": "string",
-              "description": "Breed of pet",
-              "example": "Pomeranian"
-            },
-            "petSex": {
-              "type": "string",
-              "description": "Sex of pet",
-              "example": "male"
-            },
-            "location": {
-              "type": "string",
-              "description": "Location of pet",
-              "example": "Lviv"
-            },
-            "price": {
-              "type": "number",
-              "description": "Price of pet",
-              "example": "50"
-            },
-            "petImage": {
-              "type": "string",
-              "description": "Image of pet",
-              "example": "https://editor.swagger.io/"
-            },
-            "comments": {
-              "type": "string",
-              "description": "Сomments about pet",
-              "example": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam . "
-            },
-            "owner": {
-              "type": "string",
-              "description": "User's id owner of notice",
-              "example": "125546464"
-            }
-          }
-        }
-      },
-
-      "NoticeById": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "description": "Status of the operation",
-            "example": "success"
-          },
-          "code": {
-            "type": "number",
-            "description": "Code of the operation",
-            "example": 200
-          },
-          "notice": {
-            "type": "object",
-            "properties": {
-              "category": {
-                "type": "string",
-                "description": "Category of notice",
-                "example": "sell"
-              },
-              "title": {
-                "type": "string",
-                "description": "Title of notice",
-                "example": "Cute dog"
-              },
-              "petName": {
-                "type": "string",
-                "description": "Name of pet",
-                "example": "Luck"
-              },
-              "birth": {
-                "type": "string",
-                "description": "Date of birth",
-                "example": "09.09.2020"
-              },
-              "breed": {
-                "type": "string",
-                "description": "Breed of pet",
-                "example": "Pomeranian"
-              },
-              "petSex": {
-                "type": "string",
-                "description": "Sex of pet",
-                "example": "male"
-              },
-              "location": {
-                "type": "string",
-                "description": "Location of pet",
-                "example": "Lviv"
-              },
-              "price": {
-                "type": "number",
-                "description": "Price of pet",
-                "example": 50
-              },
-              "petImage": {
-                "type": "string",
-                "description": "Image of pet",
-                "example": "https://editor.swagger.io/"
-              },
-              "comments": {
-                "type": "string",
-                "description": "Сomments about pet",
-                "example": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy. "
-              },
-              "owner": {
-                "type": "string",
-                "description": "User's id owner of notice",
-                "example": "125546464"
-              }
-            }
-          }
-        }
-      },
-      "ResponceDeleteNoticeById": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "description": "Status of the operation",
-            "example": "success"
-          },
-          "code": {
-            "type": "number",
-            "description": "Code of the operation",
-            "example": 200
-          },
-          "message": {
-            "type": "string",
-            "description": "Category of notice",
-            "example": "Notice was deleted successfully!"
-          }
-        }
-      },
       "FavoritesPets": {
         "type": "object",
         "properties": {
@@ -1394,7 +1347,7 @@
             "properties": {
               "_id": {
                 "type": "string",
-                "example": "63f0cfd9736f28f300309cff,"
+                "example": "63f0cfd9736f28f300309cff"
               },
               "favorites": {
                 "type": "array",
@@ -1480,11 +1433,186 @@
           },
           "massage": {
             "type": "string",
-            "example": "Notice with id 63f0d513736f28f300309d0b added successfully to favorites lists!200"
+            "example": "Notice with id added successfully to favorites lists!"
           }
         }
       },
-
+      "removeFavoritesPets": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success,"
+          },
+          "code": {
+            "type": "integer",
+            "example": 200
+          },
+          "massage": {
+            "type": "string",
+            "example": "Notice with id 63f3c10c049722dd70196300 successfully removed from favorites lists!"
+          }
+        }
+      },
+      "NoticeRequest": {
+        "type": "object",
+        "required": [
+          "title",
+          "petSex",
+          "location",
+          "petName",
+          "breed",
+          "comments",
+          "category"
+        ],
+        "properties": {
+          "category": {
+            "type": "string",
+            "description": "Category of notice",
+            "example": "sell"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of notice",
+            "example": "Cute dog"
+          },
+          "petName": {
+            "type": "string",
+            "description": "Name of pet",
+            "example": "Luck"
+          },
+          "birth": {
+            "type": "string",
+            "description": "Date of birth",
+            "example": "09.09.2020"
+          },
+          "breed": {
+            "type": "string",
+            "description": "Breed of pet",
+            "example": "Pomeranian"
+          },
+          "petSex": {
+            "type": "string",
+            "description": "Sex of pet",
+            "example": "male"
+          },
+          "location": {
+            "type": "string",
+            "description": "Location of pet",
+            "example": "Bilogorodka, Kyiv"
+          },
+          "price": {
+            "type": "number",
+            "description": "Price of pet",
+            "example": 50
+          },
+          "petImage": {
+            "type": "string",
+            "format": "binary"
+          },
+          "comments": {
+            "type": "string",
+            "description": "Сomments about pet",
+            "example": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy. "
+          }
+        }
+      },
+      "NoticesResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "code": {
+            "type": "integer",
+            "example": 201
+          },
+          "notices": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "category": {
+                  "type": "string",
+                  "description": "Category of notice",
+                  "example": "sell"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Title of notice",
+                  "example": "Cute dog"
+                },
+                "petName": {
+                  "type": "string",
+                  "description": "Name of pet",
+                  "example": "Luck"
+                },
+                "birth": {
+                  "type": "string",
+                  "description": "Date of birth",
+                  "example": "09.09.2020"
+                },
+                "breed": {
+                  "type": "string",
+                  "description": "Breed of pet",
+                  "example": "Pomeranian"
+                },
+                "petSex": {
+                  "type": "string",
+                  "description": "Sex of pet",
+                  "example": "male"
+                },
+                "location": {
+                  "type": "string",
+                  "description": "Location of pet",
+                  "example": "Bilogorodka, Kyiv"
+                },
+                "price": {
+                  "type": "number",
+                  "description": "Price of pet",
+                  "example": 50
+                },
+                "petImage": {
+                  "type": "string",
+                  "description": "Image of pet",
+                  "example": "https://res.cloudinary.com/djix7ylpo/image/upload/v1677077746/x4g5u7udhpeg9x3f2lku.jpg"
+                },
+                "comments": {
+                  "type": "string",
+                  "description": "Сomments about pet",
+                  "example": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam . "
+                },
+                "owner": {
+                  "type": "string",
+                  "description": "User's id owner of notice",
+                  "example": "125546464"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ResponseDeleteNoticeById": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Status of the operation",
+            "example": "success"
+          },
+          "code": {
+            "type": "number",
+            "description": "Code of the operation",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "description": "Category of notice",
+            "example": "Notice was deleted successfully!"
+          }
+        }
+      },
       "News": {
         "type": "object",
         "properties": {
@@ -1526,7 +1654,6 @@
           }
         }
       },
-
       "Friend": {
         "type": "object",
         "required": ["title"],
