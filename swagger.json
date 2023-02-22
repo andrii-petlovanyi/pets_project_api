@@ -299,7 +299,7 @@
         "requestBody": {
           "description": "My pet object",
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "$ref": "#/components/schemas/AddMyPetsRequest"
               }
@@ -319,21 +319,33 @@
           },
           "400": {
             "description": "Bad request",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                  "$ref": "#/components/schemas/UnauthorizedError"
                 }
               }
             }
           },
           "500": {
-            "description": "Internal Server Error",
-            "content": {}
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
           }
         }
       }
@@ -371,132 +383,30 @@
           },
           "400": {
             "description": "Bad request",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                  "$ref": "#/components/schemas/UnauthorizedError"
                 }
               }
             }
           },
           "500": {
-            "description": "Internal Server Error",
-            "content": {}
-          }
-        }
-      }
-    },
-    "/users/favorites": {
-      "get": {
-        "tags": ["User"],
-        "summary": "Get all favorite pets",
-        "security": [
-          {
-            "Bearer": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "description": "page number",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "page limit",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "search",
-            "in": "query",
-            "description": "search",
-            "schema": {
-              "type": "object",
-              "example": null
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
+            "description": "Internal server error",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/FavoritesPets"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/users/favorites/{petId}": {
-      "patch": {
-        "tags": ["User"],
-        "summary": "Add pets in favorites",
-        "security": [
-          {
-            "Bearer": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "petId",
-            "in": "path",
-            "description": "Pet id",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/addFavoritesPets"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": ["User"],
-        "summary": "Delete pets in favorites",
-        "security": [
-          {
-            "Bearer": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "petId",
-            "in": "path",
-            "description": "Pet id",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/addFavoritesPets"
+                  "$ref": "#/components/schemas/InternalServerError"
                 }
               }
             }
@@ -699,6 +609,121 @@
         }
       }
     },
+    "/users/favorites": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get all favorite pets",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "page limit",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "search",
+            "schema": {
+              "type": "object",
+              "example": null
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FavoritesPets"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/favorites/{petId}": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "Add pets in favorites",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "description": "Pet id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/addFavoritesPets"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["User"],
+        "summary": "Delete pets in favorites",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "description": "Pet id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/addFavoritesPets"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
     "/news": {
       "get": {
         "summary": "Get all news",
@@ -1052,7 +1077,7 @@
           },
           "avatarURL": {
             "type": "string",
-            "example": "https://static.apostrophe.ua/uploads/image/40c8096665a10a5adba37837593a2f49.jpg"
+            "format": "binary"
           },
           "comment": {
             "type": "string",
@@ -1093,7 +1118,7 @@
           },
           "massage": {
             "type": "integer",
-            "example": "Pet removed successfully!"
+            "example": "Pet deleted successfully!"
           }
         }
       },
@@ -1106,7 +1131,7 @@
           },
           "birth": {
             "type": "string",
-            "example": 2020
+            "example": "01.08.2021"
           },
           "breed": {
             "type": "string",
@@ -1114,7 +1139,7 @@
           },
           "avatarURL": {
             "type": "string",
-            "example": null
+            "example": "https://res.cloudinary.com/djix7ylpo/image/upload/v1677068752/mzy1mdnfdvlnujaysoqj.jpg"
           },
           "comment": {
             "type": "string",
@@ -1138,7 +1163,221 @@
           }
         }
       },
+      "NoticeRequest": {
+        "type": "object",
+        "required": ["title", "petSex", "location", "price"],
+        "properties": {
+          "category": {
+            "type": "string",
+            "description": "Category of notice",
+            "example": "sell"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of notice",
+            "example": "Cute dog"
+          },
+          "petName": {
+            "type": "string",
+            "description": "Name of pet",
+            "example": "Luck"
+          },
+          "birth": {
+            "type": "string",
+            "description": "Date of birth",
+            "example": "09.09.2020"
+          },
+          "breed": {
+            "type": "string",
+            "description": "Breed of pet",
+            "example": "Pomeranian"
+          },
+          "petSex": {
+            "type": "string",
+            "description": "Sex of pet",
+            "example": "male"
+          },
+          "location": {
+            "type": "string",
+            "description": "Location of pet",
+            "example": "Lviv"
+          },
+          "price": {
+            "type": "number",
+            "description": "Price of pet",
+            "example": 50
+          },
+          "petImage": {
+            "type": "string",
+            "description": "Image of pet",
+            "example": "https://editor.swagger.io/"
+          },
+          "comments": {
+            "type": "string",
+            "description": "Сomments about pet",
+            "example": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy. "
+          }
+        }
+      },
+      "NoticesResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "category": {
+              "type": "string",
+              "description": "Category of notice",
+              "example": "sell"
+            },
+            "title": {
+              "type": "string",
+              "description": "Title of notice",
+              "example": "Cute dog"
+            },
+            "petName": {
+              "type": "string",
+              "description": "Name of pet",
+              "example": "Luck"
+            },
+            "birth": {
+              "type": "string",
+              "description": "Date of birth",
+              "example": "09.09.2020"
+            },
+            "breed": {
+              "type": "string",
+              "description": "Breed of pet",
+              "example": "Pomeranian"
+            },
+            "petSex": {
+              "type": "string",
+              "description": "Sex of pet",
+              "example": "male"
+            },
+            "location": {
+              "type": "string",
+              "description": "Location of pet",
+              "example": "Lviv"
+            },
+            "price": {
+              "type": "number",
+              "description": "Price of pet",
+              "example": "50"
+            },
+            "petImage": {
+              "type": "string",
+              "description": "Image of pet",
+              "example": "https://editor.swagger.io/"
+            },
+            "comments": {
+              "type": "string",
+              "description": "Сomments about pet",
+              "example": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam . "
+            },
+            "owner": {
+              "type": "string",
+              "description": "User's id owner of notice",
+              "example": "125546464"
+            }
+          }
+        }
+      },
 
+      "NoticeById": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Status of the operation",
+            "example": "success"
+          },
+          "code": {
+            "type": "number",
+            "description": "Code of the operation",
+            "example": 200
+          },
+          "notice": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "type": "string",
+                "description": "Category of notice",
+                "example": "sell"
+              },
+              "title": {
+                "type": "string",
+                "description": "Title of notice",
+                "example": "Cute dog"
+              },
+              "petName": {
+                "type": "string",
+                "description": "Name of pet",
+                "example": "Luck"
+              },
+              "birth": {
+                "type": "string",
+                "description": "Date of birth",
+                "example": "09.09.2020"
+              },
+              "breed": {
+                "type": "string",
+                "description": "Breed of pet",
+                "example": "Pomeranian"
+              },
+              "petSex": {
+                "type": "string",
+                "description": "Sex of pet",
+                "example": "male"
+              },
+              "location": {
+                "type": "string",
+                "description": "Location of pet",
+                "example": "Lviv"
+              },
+              "price": {
+                "type": "number",
+                "description": "Price of pet",
+                "example": 50
+              },
+              "petImage": {
+                "type": "string",
+                "description": "Image of pet",
+                "example": "https://editor.swagger.io/"
+              },
+              "comments": {
+                "type": "string",
+                "description": "Сomments about pet",
+                "example": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy. "
+              },
+              "owner": {
+                "type": "string",
+                "description": "User's id owner of notice",
+                "example": "125546464"
+              }
+            }
+          }
+        }
+      },
+      "ResponceDeleteNoticeById": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Status of the operation",
+            "example": "success"
+          },
+          "code": {
+            "type": "number",
+            "description": "Code of the operation",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "description": "Category of notice",
+            "example": "Notice was deleted successfully!"
+          }
+        }
+      },
       "FavoritesPets": {
         "type": "object",
         "properties": {
@@ -1287,220 +1526,7 @@
           }
         }
       },
-      "NoticesResponse": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "category": {
-              "type": "string",
-              "description": "Category of notice",
-              "example": "sell"
-            },
-            "title": {
-              "type": "string",
-              "description": "Title of notice",
-              "example": "Cute dog"
-            },
-            "petName": {
-              "type": "string",
-              "description": "Name of pet",
-              "example": "Luck"
-            },
-            "birth": {
-              "type": "string",
-              "description": "Date of birth",
-              "example": "09.09.2020"
-            },
-            "breed": {
-              "type": "string",
-              "description": "Breed of pet",
-              "example": "Pomeranian"
-            },
-            "petSex": {
-              "type": "string",
-              "description": "Sex of pet",
-              "example": "male"
-            },
-            "location": {
-              "type": "string",
-              "description": "Location of pet",
-              "example": "Lviv"
-            },
-            "price": {
-              "type": "number",
-              "description": "Price of pet",
-              "example": "50"
-            },
-            "petImage": {
-              "type": "string",
-              "description": "Image of pet",
-              "example": "https://editor.swagger.io/"
-            },
-            "comments": {
-              "type": "string",
-              "description": "Сomments about pet",
-              "example": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam . "
-            },
-            "owner": {
-              "type": "string",
-              "description": "User's id owner of notice",
-              "example": "125546464"
-            }
-          }
-        }
-      },
-      "NoticeRequest": {
-        "type": "object",
-        "required": ["title", "petSex", "location", "price"],
-        "properties": {
-          "category": {
-            "type": "string",
-            "description": "Category of notice",
-            "example": "sell"
-          },
-          "title": {
-            "type": "string",
-            "description": "Title of notice",
-            "example": "Cute dog"
-          },
-          "petName": {
-            "type": "string",
-            "description": "Name of pet",
-            "example": "Luck"
-          },
-          "birth": {
-            "type": "string",
-            "description": "Date of birth",
-            "example": "09.09.2020"
-          },
-          "breed": {
-            "type": "string",
-            "description": "Breed of pet",
-            "example": "Pomeranian"
-          },
-          "petSex": {
-            "type": "string",
-            "description": "Sex of pet",
-            "example": "male"
-          },
-          "location": {
-            "type": "string",
-            "description": "Location of pet",
-            "example": "Lviv"
-          },
-          "price": {
-            "type": "number",
-            "description": "Price of pet",
-            "example": 50
-          },
-          "petImage": {
-            "type": "string",
-            "description": "Image of pet",
-            "example": "https://editor.swagger.io/"
-          },
-          "comments": {
-            "type": "string",
-            "description": "Сomments about pet",
-            "example": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy. "
-          }
-        }
-      },
-      "NoticeById": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "description": "Status of the operation",
-            "example": "success"
-          },
-          "code": {
-            "type": "number",
-            "description": "Code of the operation",
-            "example": 200
-          },
-          "notice": {
-            "type": "object",
-            "properties": {
-              "category": {
-                "type": "string",
-                "description": "Category of notice",
-                "example": "sell"
-              },
-              "title": {
-                "type": "string",
-                "description": "Title of notice",
-                "example": "Cute dog"
-              },
-              "petName": {
-                "type": "string",
-                "description": "Name of pet",
-                "example": "Luck"
-              },
-              "birth": {
-                "type": "string",
-                "description": "Date of birth",
-                "example": "09.09.2020"
-              },
-              "breed": {
-                "type": "string",
-                "description": "Breed of pet",
-                "example": "Pomeranian"
-              },
-              "petSex": {
-                "type": "string",
-                "description": "Sex of pet",
-                "example": "male"
-              },
-              "location": {
-                "type": "string",
-                "description": "Location of pet",
-                "example": "Lviv"
-              },
-              "price": {
-                "type": "number",
-                "description": "Price of pet",
-                "example": 50
-              },
-              "petImage": {
-                "type": "string",
-                "description": "Image of pet",
-                "example": "https://editor.swagger.io/"
-              },
-              "comments": {
-                "type": "string",
-                "description": "Сomments about pet",
-                "example": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy. "
-              },
-              "owner": {
-                "type": "string",
-                "description": "User's id owner of notice",
-                "example": "125546464"
-              }
-            }
-          }
-        }
-      },
-      "ResponceDeleteNoticeById": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "description": "Status of the operation",
-            "example": "success"
-          },
-          "code": {
-            "type": "number",
-            "description": "Code of the operation",
-            "example": 200
-          },
-          "message": {
-            "type": "string",
-            "description": "Category of notice",
-            "example": "Notice was deleted successfully!"
-          }
-        }
-      },
+
       "Friend": {
         "type": "object",
         "required": ["title"],
