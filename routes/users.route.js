@@ -38,7 +38,7 @@ router.get('/logout', logOutCtrl);
 router.patch('/favorites/:noticeId', idValidation, addNoticeToFavCtrl);
 router.patch(
   '/',
-  uploadPhoto.single('image'),
+  uploadPhoto.single('avatarURL'),
   reqValidation(updateUserSchema),
   updateUserCtrl,
 );
@@ -47,7 +47,7 @@ router.delete('/favorites/:noticeId', idValidation, deleteNoticeFromFavCtrl);
 
 router.post(
   '/pets',
-  uploadPhoto.single('image'),
+  uploadPhoto.single('avatarURL'),
   reqValidation(addPetSchema),
   addMyPetCtrl,
 );
