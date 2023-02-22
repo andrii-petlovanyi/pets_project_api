@@ -24,7 +24,7 @@ router.get('/:noticeId', idValidation, noticeByIdCtrl);
 router.use(checkJWT);
 router.post(
   '/',
-  uploadPhoto.single('image'),
+  uploadPhoto.single('petImage'),
   reqValidation(noticeAddSchema),
   addNoticeCtrl,
 );

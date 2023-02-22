@@ -9,7 +9,7 @@ const delMyPetCtrl = async (req, res) => {
   res.status(200).json({
     status: 'success',
     code: 200,
-    message: 'Pet added successfully!',
+    message: 'Pet deleted successfully!',
     pet,
   });
 };

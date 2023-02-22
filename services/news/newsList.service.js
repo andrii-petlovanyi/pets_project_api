@@ -6,11 +6,12 @@ const getNews = async word => {
     const data = await News.find({
       title: {
         $regex: `${word}`,
+        $options: '/i',
       },
     });
     return data;
   }
-  
+
   const data = await News.find();
 
   if (!data) {
