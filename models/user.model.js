@@ -24,7 +24,7 @@ const userSchema = new Schema(
     },
     birthday: {
       type: String,
-      default: '01.01.1977',
+      default: '00.00.0000',
     },
     phone: {
       type: String,
