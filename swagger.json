@@ -520,7 +520,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NoticesResponse"
+                  "$ref": "#/components/schemas/NoticesByIdResponse"
                 }
               }
             }
@@ -579,7 +579,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NoticesResponse"
+                  "$ref": "#/components/schemas/NoticesByIdResponse"
                 }
               }
             }
@@ -642,6 +642,49 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notices/owner": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Find user's own ads ",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticesResponse"
                 }
               }
             }
@@ -1417,6 +1460,10 @@
                 }
               }
             }
+          },
+          "totalCount": {
+            "type": "integer",
+            "example": 1
           }
         }
       },
@@ -1518,6 +1565,86 @@
         }
       },
       "NoticesResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "code": {
+            "type": "integer",
+            "example": 201
+          },
+          "notices": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "category": {
+                  "type": "string",
+                  "description": "Category of notice",
+                  "example": "sell"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Title of notice",
+                  "example": "Cute dog"
+                },
+                "petName": {
+                  "type": "string",
+                  "description": "Name of pet",
+                  "example": "Luck"
+                },
+                "birth": {
+                  "type": "string",
+                  "description": "Date of birth",
+                  "example": "09.09.2020"
+                },
+                "breed": {
+                  "type": "string",
+                  "description": "Breed of pet",
+                  "example": "Pomeranian"
+                },
+                "petSex": {
+                  "type": "string",
+                  "description": "Sex of pet",
+                  "example": "male"
+                },
+                "location": {
+                  "type": "string",
+                  "description": "Location of pet",
+                  "example": "Bilogorodka, Kyiv"
+                },
+                "price": {
+                  "type": "number",
+                  "description": "Price of pet",
+                  "example": 50
+                },
+                "petImage": {
+                  "type": "string",
+                  "description": "Image of pet",
+                  "example": "https://res.cloudinary.com/djix7ylpo/image/upload/v1677077746/x4g5u7udhpeg9x3f2lku.jpg"
+                },
+                "comments": {
+                  "type": "string",
+                  "description": "Сomments about pet",
+                  "example": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam . "
+                },
+                "owner": {
+                  "type": "string",
+                  "description": "User's id owner of notice",
+                  "example": "125546464"
+                }
+              }
+            }
+          },
+          "totalCount": {
+            "type": "integer",
+            "example": 1
+          }
+        }
+      },
+      "NoticesByIdResponse": {
         "type": "object",
         "properties": {
           "status": {
