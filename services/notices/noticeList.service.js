@@ -11,7 +11,15 @@ async function listNotices(page = 1, limit = 10, category = 'sell', search) {
     : await Notice.find({ category })
         .limit(limit)
         .skip((page - 1) * limit);
-  return notices;
+
+  const totalCount = search
+    ? await Notice.count({
+        category,
+        title: { $regex: `${search}`, $options: '/i' },
+      })
+    : await Notice.count({ category });
+
+  return { notices, totalCount };
 }
 
 module.exports = {

@@ -12,7 +12,13 @@ const userNoticesList = async (_id, page = 1, limit = 10, search) => {
         .limit(limit)
         .skip((page - 1) * limit);
 
-  return notices;
+  const totalCount = search
+    ? await Notice.count({
+        owner: _id,
+      })
+    : await Notice.count({ owner: _id });
+
+  return { notices, totalCount };
 };
 
 module.exports = { userNoticesList };
