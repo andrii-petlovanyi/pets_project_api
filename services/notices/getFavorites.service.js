@@ -26,7 +26,11 @@ const favNoticesList = async (_id, page, limit, search) => {
       path: 'favorites',
       match: noticesQuery,
       select: '-updatedAt -__v',
-      options: { limit: limit, skip: (page - 1) * limit },
+      options: {
+        limit: limit,
+        skip: (page - 1) * limit,
+        sort: { createdAt: -1 },
+      },
     })
     .lean();
 
