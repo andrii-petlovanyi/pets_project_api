@@ -25,7 +25,6 @@ const userSchema = new Schema(
     },
     birthday: {
       type: String,
-      default: '00.00.0000',
     },
     phone: {
       type: String,
@@ -56,9 +55,7 @@ const userSchema = new Schema(
 userSchema.post('save', function (error, doc, next) {
   if (error.code === 11000) {
     next(
-      new ConflictError(
-        `User with number ${error.keyValue.phone} is exists`,
-      ),
+      new ConflictError(`User with number ${error.keyValue.phone} is exists`),
     );
   } else {
     next();
