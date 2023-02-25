@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcryptjs = require('bcryptjs');
+const { ConflictError } = require('../helpers/errors');
 
 const userSchema = new Schema(
   {
@@ -51,6 +52,19 @@ const userSchema = new Schema(
 
   { versionKey: false, timestamps: true },
 );
+
+userSchema.post('save', function (error, doc, next) {
+  console.log(error);
+  if (error.code === 11000) {
+    next(
+      new ConflictError(
+        `User with this number ${error.keyValue.phone} is exists`,
+      ),
+    );
+  } else {
+    next();
+  }
+});
 
 userSchema.methods.setPassword = function (password) {
   this.password = bcryptjs.hashSync(password, bcryptjs.genSaltSync(10));
