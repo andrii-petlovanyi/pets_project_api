@@ -22,7 +22,9 @@ const { MONGO_URL } = process.env;
 
 app.use(logger(typeLogger));
 app.use(cors());
-app.use(express.json({ limit: '10mb' }));
+
+const bodyParser = require('body-parser');
+app.use(bodyParser.json({limit: "50mb"}));
 
 app.use('/api/users', usersRouter);
 app.use('/api/notices', noticesRouter);

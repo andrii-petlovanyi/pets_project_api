@@ -6,11 +6,11 @@ const userNoticesList = async (_id, page = 1, limit = 10, search) => {
         owner: _id,
         title: { $regex: `${search}`, $options: '/i' },
       })
-        .sort({ createdAt: -1 })
+	.sort({ createdAt: -1 })
         .limit(limit)
         .skip((page - 1) * limit)
     : await Notice.find({ owner: _id })
-        .sort({ createdAt: -1 })
+	.sort({ createdAt: -1 })
         .limit(limit)
         .skip((page - 1) * limit);
 

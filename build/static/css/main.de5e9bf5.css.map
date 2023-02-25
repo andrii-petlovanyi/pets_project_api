@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/main.de5e9bf5.css","mappings":"AAAA,KACI,mBAAsB,CAEtB,cAAe,CADf,eAAgB,CAEhB,gBACJ","sources":["index.css"],"sourcesContent":["body {\n    font-family: 'Manrope';\n    font-weight: 400;\n    font-size: 16px;\n    line-height: 1.37;\n}"],"names":[],"sourceRoot":""}

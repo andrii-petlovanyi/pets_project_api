@@ -12,7 +12,7 @@ const userSchema = new Schema(
     email: {
       type: String,
       required: [true, 'Email is required'],
-      unique: true,
+      unique: [true, 'Email is must be unique'],
     },
     password: {
       type: String,
@@ -28,7 +28,7 @@ const userSchema = new Schema(
     },
     phone: {
       type: String,
-      unique: true,
+      unique: [true, 'Email is must be unique'],
       default: '',
     },
     accessToken: {
@@ -55,13 +55,14 @@ const userSchema = new Schema(
 userSchema.post('save', function (error, doc, next) {
   if (error.code === 11000) {
     next(
-      new ConflictError(`User with number ${error.keyValue.phone} is exists`),
+      new ConflictError(
+        `User with number ${error.keyValue.phone} is exists`,
+      ),
     );
   } else {
     next();
   }
 });
-
 userSchema.methods.setPassword = function (password) {
   this.password = bcryptjs.hashSync(password, bcryptjs.genSaltSync(10));
 };

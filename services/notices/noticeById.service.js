@@ -4,7 +4,7 @@ const { CustomError } = require('../../helpers/errors');
 const noticeById = async noticeId => {
   const noticeById = await Notice.findOne({ _id: noticeId }).populate({
     path: 'owner',
-    select: 'email, phone',
+    select: 'email phone',
   });
 
   if (!noticeById) {
