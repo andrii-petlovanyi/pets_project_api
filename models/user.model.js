@@ -54,11 +54,10 @@ const userSchema = new Schema(
 );
 
 userSchema.post('save', function (error, doc, next) {
-  console.log(error);
   if (error.code === 11000) {
     next(
       new ConflictError(
-        `User with this number ${error.keyValue.phone} is exists`,
+        `User with number ${error.keyValue.phone} is exists`,
       ),
     );
   } else {
