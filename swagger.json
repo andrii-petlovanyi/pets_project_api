@@ -478,7 +478,8 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AddMyPetResponse"
+                  "$ref": "#/components/schemas/NoticesByIdResponse"
+
                 }
               }
             }
@@ -530,7 +531,8 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RemoveMyPetResponse"
+                  "$ref": "#/components/schemas/NoticesByIdResponse"
+
                 }
               }
             }
@@ -567,6 +569,114 @@
         ],
         "parameters": [
           {
+            "name": "noticeId",
+            "in": "path",
+            "description": "Delete notice from base",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDeleteNoticeById"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notices/owner": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Find user's own ads ",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/favorites": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get all favorite pets",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+
             "name": "page",
             "in": "query",
             "description": "page number",
@@ -987,44 +1097,97 @@
           }
         }
       },
-      "Pet": {
+      "FavoritesPets": {
         "type": "object",
         "properties": {
-          "name": {
+          "status": {
             "type": "string",
-            "example": "Patron"
+            "example": "success,"
           },
-          "birth": {
-            "type": "string",
-            "example": 2020
+          "code": {
+            "type": "integer",
+            "example": 200
           },
-          "breed": {
-            "type": "string",
-            "example": "Jack Russell Terrier"
+          "notices": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "example": "63f0cfd9736f28f300309cff"
+              },
+              "favorites": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "example": "63f0cfd9736f28f300309cff,"
+                    },
+                    "category": {
+                      "type": "string",
+                      "description": "Category of notice",
+                      "example": "sell"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Title of notice",
+                      "example": "Cute dog"
+                    },
+                    "petName": {
+                      "type": "string",
+                      "description": "Name of pet",
+                      "example": "Luck"
+                    },
+                    "birth": {
+                      "type": "string",
+                      "description": "Date of birth",
+                      "example": "09.09.2020"
+                    },
+                    "breed": {
+                      "type": "string",
+                      "description": "Breed of pet",
+                      "example": "Pomeranian"
+                    },
+                    "petSex": {
+                      "type": "string",
+                      "description": "Sex of pet",
+                      "example": "male"
+                    },
+                    "location": {
+                      "type": "string",
+                      "description": "Location of pet",
+                      "example": "Lviv"
+                    },
+                    "price": {
+                      "type": "number",
+                      "description": "Price of pet",
+                      "example": 50
+                    },
+                    "petImage": {
+                      "type": "string",
+                      "description": "Image of pet",
+                      "example": "https://editor.swagger.io/"
+                    },
+                    "comments": {
+                      "type": "string",
+                      "description": "Сomments about pet",
+                      "example": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy. "
+                    },
+                    "owner": {
+                      "type": "string",
+                      "description": "User's id owner of notice",
+                      "example": "125546464"
+                    }
+                  }
+                }
+              }
+            }
           },
-          "avatarURL": {
-            "type": "string",
-            "example": null
-          },
-          "comment": {
-            "type": "string",
-            "example": "Small tan and white terriers that technically belong to other breeds are sometimes known erroneously as \\\"Jack Russells\\\"."
-          },
-          "owner": {
-            "type": "string",
-            "example": "63ef81c5986c1693cca9d289"
-          },
-          "_id": {
-            "type": "string",
-            "example": "63f0b3b2b06dba672e91e3b6"
-          },
-          "createdAt": {
-            "type": "string",
-            "example": "2023-02-18T11:17:06.974Z"
-          },
-          "updatedAt": {
-            "type": "string",
-            "example": "2023-02-18T11:17:06.974Z"
+          "totalCount": {
+            "type": "integer",
+            "example": 1
+
           }
         }
       },
@@ -1322,6 +1485,86 @@
                 "type": "string",
                 "description": "User's id owner of notice",
                 "example": "125546464"
+              }
+            }
+          },
+          "totalCount": {
+            "type": "integer",
+            "example": 1
+          }
+        }
+      },
+      "NoticesByIdResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "code": {
+            "type": "integer",
+            "example": 201
+          },
+          "notices": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "category": {
+                  "type": "string",
+                  "description": "Category of notice",
+                  "example": "sell"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Title of notice",
+                  "example": "Cute dog"
+                },
+                "petName": {
+                  "type": "string",
+                  "description": "Name of pet",
+                  "example": "Luck"
+                },
+                "birth": {
+                  "type": "string",
+                  "description": "Date of birth",
+                  "example": "09.09.2020"
+                },
+                "breed": {
+                  "type": "string",
+                  "description": "Breed of pet",
+                  "example": "Pomeranian"
+                },
+                "petSex": {
+                  "type": "string",
+                  "description": "Sex of pet",
+                  "example": "male"
+                },
+                "location": {
+                  "type": "string",
+                  "description": "Location of pet",
+                  "example": "Bilogorodka, Kyiv"
+                },
+                "price": {
+                  "type": "number",
+                  "description": "Price of pet",
+                  "example": 50
+                },
+                "petImage": {
+                  "type": "string",
+                  "description": "Image of pet",
+                  "example": "https://res.cloudinary.com/djix7ylpo/image/upload/v1677077746/x4g5u7udhpeg9x3f2lku.jpg"
+                },
+                "comments": {
+                  "type": "string",
+                  "description": "Сomments about pet",
+                  "example": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam . "
+                },
+                "owner": {
+                  "type": "string",
+                  "description": "User's id owner of notice",
+                  "example": "125546464"
+                }
               }
             }
           }
