@@ -8,7 +8,6 @@ const birthDay =
 
 const updateUserSchema = Joi.object({
   name: Joi.string().min(3).max(25).messages({
-    'string.alphanum': 'Your name must only contain alpha-numeric characters',
     'string.min': `Name length must be at least {{#limit}} characters long`,
     'string.max': `Name length must be at most {{#limit}} characters long`,
   }),
@@ -20,7 +19,7 @@ const updateUserSchema = Joi.object({
   birthday: Joi.string().pattern(birthDay).messages({
     'string.pattern.base': 'Birthday date must be in format 01.12.1970',
   }),
-  phone: Joi.string().min(9).max(15).messages({
+  phone: Joi.string().min(13).max(13).messages({
     'string.min': `Phone number length must be at least {{#limit}} characters long`,
     'string.max': `Phone number length must be at most {{#limit}} characters long`,
   }),
@@ -48,7 +47,6 @@ const loginSchema = Joi.object({
 const registerSchema = Joi.object({
   name: Joi.string().min(3).max(25).required().messages({
     'any.required': 'Name is required',
-    'string.alphanum': 'Your name must only contain alpha-numeric characters',
     'string.min': `Name length must be at least {{#limit}} characters long`,
     'string.max': `Name length must be at most {{#limit}} characters long`,
   }),
@@ -59,17 +57,15 @@ const registerSchema = Joi.object({
     'string.email': 'email must be in format email@domain.com',
   }),
   password: Joi.string()
-    .pattern(passRegexp)
-    .min(6)
+    .min(7)
     .max(32)
     .required()
     .messages({
       'any.required': 'Password is required',
       'string.min': `Password length must be at least {{#limit}} characters long`,
       'string.max': `Password length must be at most {{#limit}} characters long`,
-      'string.pattern.base': 'Please use letters and numbers',
     }),
-  phone: Joi.string().min(9).max(15).required().messages({
+  phone: Joi.string().min(13).max(13).required().messages({
     'any.required': 'Phone number is required',
     'string.min': `Phone number length must be at least {{#limit}} characters long`,
     'string.max': `Phone number length must be at most {{#limit}} characters long`,
@@ -97,7 +93,7 @@ const addPetSchema = Joi.object({
     'string.min': `Breed length must be at least {{#limit}} characters long`,
     'string.max': `Breed length must be at most {{#limit}} characters long`,
   }),
-  comment: Joi.string().min(10).max(320).required().messages({
+  comment: Joi.string().min(8).max(120).required().messages({
     'any.required': 'City is required',
     'string.min': `Comment length must be at least {{#limit}} characters long`,
     'string.max': `Comment length must be at most {{#limit}} characters long`,
