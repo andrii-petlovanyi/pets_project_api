@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const passRegexp = /^(?=.{7,32}$)([0-9A-Za-z])*$/;
+const passRegexp = /^(?=.{7,32}$)([0-9A-Za-zа-яА-ЯіІ])*$/;
 const emailRegexp =
   /^[\S]{1}[\S@.]*[a-zA-Z0-9]+@[^\W_]{1,}[^\W_]*(\.[^\W_]{2,})+$/;
 const birthDay =
@@ -67,7 +67,7 @@ const registerSchema = Joi.object({
       'any.required': 'Password is required',
       'string.min': `Password length must be at least {{#limit}} characters long`,
       'string.max': `Password length must be at most {{#limit}} characters long`,
-      'string.pattern.base': 'Please use symbols A-z and numbers',
+      'string.pattern.base': 'Please use letters and numbers',
     }),
   phone: Joi.string().min(9).max(15).required().messages({
     'any.required': 'Phone number is required',
