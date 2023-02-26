@@ -67,7 +67,7 @@ const registerSchema = Joi.object({
       'any.required': 'Password is required',
       'string.min': `Password length must be at least {{#limit}} characters long`,
       'string.max': `Password length must be at most {{#limit}} characters long`,
-      'string.pattern.base': 'Please use symbols A-z and numbers',
+      'string.pattern.base': 'Please use letters and numbers',
     }),
   phone: Joi.string().min(9).max(15).required().messages({
     'any.required': 'Phone number is required',
