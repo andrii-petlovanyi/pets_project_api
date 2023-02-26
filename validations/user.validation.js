@@ -7,28 +7,28 @@ const birthDay =
   /^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/;
 
 const updateUserSchema = Joi.object({
-  name: Joi.string().min(3).max(25).alphanum().optional().messages({
+  name: Joi.string().min(3).max(25).messages({
     'string.alphanum': 'Your name must only contain alpha-numeric characters',
     'string.min': `Name length must be at least {{#limit}} characters long`,
     'string.max': `Name length must be at most {{#limit}} characters long`,
   }),
-  email: Joi.string().min(7).max(63).optional().pattern(emailRegexp).messages({
+  email: Joi.string().min(7).max(63).email().messages({
     'string.min': `Email length must be at least {{#limit}} characters long`,
     'string.max': `Email length must be at most {{#limit}} characters long`,
-    'string.pattern.base': 'Email is must be in format email@domain.com',
+    'string.email': 'email must be in format email@domain.com',
   }),
-  birthday: Joi.string().pattern(birthDay).optional().messages({
+  birthday: Joi.string().pattern(birthDay).messages({
     'string.pattern.base': 'Birthday date must be in format 01.12.1970',
   }),
-  phone: Joi.string().min(9).max(15).optional().messages({
+  phone: Joi.string().min(9).max(15).messages({
     'string.min': `Phone number length must be at least {{#limit}} characters long`,
     'string.max': `Phone number length must be at most {{#limit}} characters long`,
   }),
-  city: Joi.string().min(3).max(20).optional().messages({
+  city: Joi.string().min(3).max(20).messages({
     'string.min': `City length must be at least {{#limit}} characters long`,
     'string.max': `City length must be at most {{#limit}} characters long`,
   }),
-  avatarURL: Joi.string().optional(),
+  avatarURL: Joi.string(),
 });
 
 const loginSchema = Joi.object({
@@ -37,26 +37,26 @@ const loginSchema = Joi.object({
     'string.min': `Password length must be at least {{#limit}} characters long`,
     'string.max': `Password length must be at most {{#limit}} characters long`,
   }),
-  email: Joi.string().min(7).max(63).required().pattern(emailRegexp).messages({
+  email: Joi.string().min(7).max(63).required().email().messages({
     'any.required': 'Email is required',
     'string.min': `Email length must be at least {{#limit}} characters long`,
     'string.max': `Email length must be at most {{#limit}} characters long`,
-    'string.pattern.base': 'Email is must be in format email@domain.com',
+    'string.email': 'email must be in format email@domain.com',
   }),
 });
 
 const registerSchema = Joi.object({
-  name: Joi.string().min(3).max(25).alphanum().required().messages({
+  name: Joi.string().min(3).max(25).required().messages({
     'any.required': 'Name is required',
     'string.alphanum': 'Your name must only contain alpha-numeric characters',
     'string.min': `Name length must be at least {{#limit}} characters long`,
     'string.max': `Name length must be at most {{#limit}} characters long`,
   }),
-  email: Joi.string().min(6).max(63).required().pattern(emailRegexp).messages({
+  email: Joi.string().min(6).max(63).required().email().messages({
     'any.required': 'Email is required',
     'string.min': `Email length must be at least {{#limit}} characters long`,
     'string.max': `Email length must be at most {{#limit}} characters long`,
-    'string.pattern.base': 'Email is must be in format email@domain.com',
+    'string.email': 'email must be in format email@domain.com',
   }),
   password: Joi.string()
     .pattern(passRegexp)
@@ -82,7 +82,7 @@ const registerSchema = Joi.object({
 });
 
 const addPetSchema = Joi.object({
-  name: Joi.string().min(2).max(32).alphanum().required().messages({
+  name: Joi.string().min(2).max(32).required().messages({
     'any.required': 'Name is required',
     'string.alphanum': 'Pet name must only contain alpha-numeric characters',
     'string.min': `Name length must be at least {{#limit}} characters long`,

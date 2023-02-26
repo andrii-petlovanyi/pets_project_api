@@ -3,7 +3,9 @@ const { CustomError } = require('../helpers/errors');
 const reqValidation = schema => {
   const func = async (req, res, next) => {
     const body = req.body;
-    if (!Object.keys(body).length) {
+
+
+    if (!Object.keys(body).length && !req.file) {
       next(new CustomError('All fields is required'));
     }
 

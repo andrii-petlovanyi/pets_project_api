@@ -6,14 +6,14 @@ const updateUser = async (userId, body, avatar) => {
   const updatedUser = !!avatar
     ? await User.findByIdAndUpdate(
         { _id: userId },
-        { name, city, birthday, phone, avatarURL: avatar.path },
+        { ...body, avatarURL: avatar.path },
         { new: true },
       )
         .select('-password -createdAt -updatedAt')
         .exec()
     : await User.findByIdAndUpdate(
         { _id: userId },
-        { name, city, birthday, phone },
+        { ...body },
         { new: true },
       )
         .select('-password -createdAt -updatedAt')

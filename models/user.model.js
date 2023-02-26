@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcryptjs = require('bcryptjs');
+const { ConflictError } = require('../helpers/errors');
 
 const userSchema = new Schema(
   {
@@ -11,7 +12,7 @@ const userSchema = new Schema(
     email: {
       type: String,
       required: [true, 'Email is required'],
-      unique: true,
+      unique: [true, 'Email is must be unique'],
     },
     password: {
       type: String,
@@ -24,11 +25,10 @@ const userSchema = new Schema(
     },
     birthday: {
       type: String,
-      default: '00.00.0000',
     },
     phone: {
       type: String,
-      unique: true,
+      unique: [true, 'Email is must be unique'],
       default: '',
     },
     accessToken: {
@@ -52,6 +52,17 @@ const userSchema = new Schema(
   { versionKey: false, timestamps: true },
 );
 
+userSchema.post('save', function (error, doc, next) {
+  if (error.code === 11000) {
+    next(
+      new ConflictError(
+        `User with number ${error.keyValue.phone} is exists`,
+      ),
+    );
+  } else {
+    next();
+  }
+});
 userSchema.methods.setPassword = function (password) {
   this.password = bcryptjs.hashSync(password, bcryptjs.genSaltSync(10));
 };

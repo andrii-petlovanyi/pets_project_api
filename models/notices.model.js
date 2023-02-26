@@ -23,7 +23,7 @@ const Notice = new Schema(
     },
     breed: {
       type: String,
-      required: [true, 'Set breed']
+      required: [true, 'Set breed'],
     },
     petSex: {
       type: String,
@@ -45,7 +45,7 @@ const Notice = new Schema(
     },
     owner: {
       type: SchemaTypes.ObjectId,
-      ref: 'user',
+      ref: 'User',
     },
   },
   { versionKey: false, timestamps: true },

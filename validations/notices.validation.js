@@ -19,12 +19,12 @@ const noticeAddSchema = Joi.object({
     'string.min': `Title length must be at least {{#limit}} characters long`,
     'string.max': `Title length must be at most {{#limit}} characters long`,
   }),
-  petName: Joi.string().alphanum().min(2).max(16).messages({
+  petName: Joi.string().min(2).max(16).messages({
     'string.alphanum': 'Pet name must only contain alpha-numeric characters',
     'string.min': 'Pet name must be at least {{#limit}} characters long',
     'string.max': 'Pet name cannot be longer than {{#limit}} characters',
   }),
-  birth: Joi.string().pattern(birthDay).messages({
+  birth: Joi.string().messages({
     'string.pattern.base': 'Birthday is must be in format 01.12.1970',
   }),
   breed: Joi.string().min(2).max(56).messages({
