@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const passRegexp = /^(?=.{7,32}$)([0-9A-Za-z])*$/;
+const passRegexp = /^(?=.{7,32}$)([0-9A-Za-zа-яА-ЯіІ])*$/;
 const emailRegexp =
   /^[\S]{1}[\S@.]*[a-zA-Z0-9]+@[^\W_]{1,}[^\W_]*(\.[^\W_]{2,})+$/;
 const birthDay =
