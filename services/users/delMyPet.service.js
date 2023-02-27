@@ -3,7 +3,6 @@ const { deletePhoto } = require('../../middlewares/deletePhoto');
 const Pet = require('../../models/pets.model');
 
 const delMyPet = async petId => {
-  console.log(petId);
   const deletedPet = await Pet.findOneAndDelete({ _id: petId });
 
   if (!deletedPet) {

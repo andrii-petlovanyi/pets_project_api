@@ -55,9 +55,7 @@ const userSchema = new Schema(
 userSchema.post('save', function (error, doc, next) {
   if (error.code === 11000) {
     next(
-      new ConflictError(
-        `User with number ${error.keyValue.phone} is exists`,
-      ),
+      new ConflictError(`User with number ${error.keyValue.phone} is exists`),
     );
   } else {
     next();

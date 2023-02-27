@@ -8,17 +8,15 @@ const deleteNoticeFromFav = async (userId, noticeId) => {
   if (!favorites.includes(noticeId)) {
     throw new CustomError(`Sorry, but notice with id ${noticeId} not found`);
   }
-  const newFavorites = favorites.filter(
-    fav => fav.toString() !== noticeId.toString(),
-  );
 
   const updatedUser = await User.findOneAndUpdate(
     { _id: userId },
-    { favorites: newFavorites },
+    { $pull: { favorites: noticeId } },
     { new: true },
   )
     .select('-password -createdAt -updatedAt')
     .exec();
+
   return updatedUser;
 };
 
